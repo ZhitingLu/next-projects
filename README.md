@@ -37,30 +37,38 @@ Each project is in its own folder.
 ```bash
 git clone https://github.com/ZhitingLu/next-projects.git
 cd your-repo-name
+```
 
 ### 2. Navigate into a project folder:
 
 ```bash
 cd project-folder-name
+```
 Replace project-folder-name with the project you want to run.
+
 
 ### 3. Install dependencies:
 
 ```bash
 npm install
+```
 
 
 ### 4. Create environment variables:
-Copy the .env.example file and rename it:
+Copy the .env.example file and rename it if needed:
 
 ```bash
 cp .env.example .env.local
+```
 Fill in your API keys (Firebase, TMDB, Google, etc.)
+
 
 ### 5. Run the development server:
 ```bash
 npm run dev
+```
 Visit http://localhost:3000 🚀
+
 
 📚 Topics Covered
 Static vs Server Rendering
