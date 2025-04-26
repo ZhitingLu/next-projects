@@ -69,6 +69,7 @@ npm run dev
 ```
 Visit http://localhost:3000 🚀
 
+---
 
 ### 📚 Topics Covered
 - Static vs Server Rendering
@@ -80,8 +81,12 @@ Visit http://localhost:3000 🚀
 - NextAuth Authentication
 - API Integrations (TMDB, Google)
 
+---
+
 ### 🤝 Contributing
 Contributions, ideas, and suggestions are welcome!
+
+---
 
 ### 📜 License
 Open source under the MIT License.
