@@ -71,14 +71,14 @@ Visit http://localhost:3000 🚀
 
 
 ### 📚 Topics Covered
-Static vs Server Rendering
-App Router best practices
-API Routes and Server Actions
-Recoil State Management
-Tailwind Responsive Design
-Firebase Storage and Database
-NextAuth Authentication
-API Integrations (TMDB, Google)
+- Static vs Server Rendering
+- App Router best practices
+- API Routes and Server Actions
+- Recoil State Management
+- Tailwind Responsive Design
+- Firebase Storage and Database
+- NextAuth Authentication
+- API Integrations (TMDB, Google)
 
 ### 🤝 Contributing
 Contributions, ideas, and suggestions are welcome!
