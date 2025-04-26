@@ -13,6 +13,7 @@ These projects demonstrate:
 - Authentication with NextAuth.js
 - Database and Storage with Firebase
 - API integrations (TMDB, Google Search API)
+- Deploy applications seamlessly on Vercel
 
 ---
 
@@ -80,6 +81,7 @@ Visit http://localhost:3000 🚀
 - Firebase Storage and Database
 - NextAuth Authentication
 - API Integrations (TMDB, Google)
+- Deployment (Vercel)
 
 ---
 
