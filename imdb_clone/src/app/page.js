@@ -16,8 +16,8 @@ export default async function page({ searchParams }) {
   // Wait for 2 seconds before continuing with fetch
   await delay(1000);
 
-  const apiUrl = `https://api.themoviedb.org/3/${
-    genreValue === "fetchTopRated" ? "movie/top_rated" : "trending/all/week"
+  const apiUrl = `https://api.themoviedb.org/3${
+    genreValue === "fetchTopRated" ? "/movie/top_rated" : "/trending/all/week"
   }?api_key=${API_KEY}&
     language=en-US&page=1`;
 
