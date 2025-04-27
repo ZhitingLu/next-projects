@@ -8,7 +8,7 @@ export default function error({ error, reset }) {
   }, [error]);
 
   return (
-    <div className="flex items-start justify-center min-h-screen bg-gray-100">
+    <div className="flex items-start justify-center min-h-screen">
     <div className="text-center mt-10 p-6 rounded-lg shadow-md">
       <h5 className="text-xl font-semibold mb-4">
         Something went wrong. Please try again later.
