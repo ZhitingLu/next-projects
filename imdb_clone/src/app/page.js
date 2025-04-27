@@ -14,8 +14,7 @@ export default async function page({ searchParams }) {
     genreValue === "fetchTopRated" ? "movie/top_rated" : "trending/all/week"
   }?api_key=${API_KEY}&
     language=en-US&page=1`;
-  console.log(apiUrl);
-
+  
   const res = await fetch(apiUrl);
 
   const data = await res.json();
