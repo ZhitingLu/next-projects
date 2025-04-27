@@ -37,7 +37,7 @@ Each project is in its own folder.
 
 ```bash
 git clone https://github.com/ZhitingLu/next-projects.git
-cd your-repo-name
+cd next-projects
 ```
 
 ### 2. Navigate into a project folder:
