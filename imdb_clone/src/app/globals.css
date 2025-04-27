@@ -1,5 +1,6 @@
 @import "tailwindcss";
 
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
@@ -25,8 +26,12 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
-/* Dark mode styles */
+/* manual dark mode (if .dark class is active) */
 .dark body {
   background-color: #333;
   color: white;
+}
+
+.dark .bg-amber-600 {
+  background-color: #f59e0b !important;
 }
