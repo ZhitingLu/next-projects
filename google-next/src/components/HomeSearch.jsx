@@ -46,12 +46,14 @@ export default function HomeSearch() {
           alt="Mic"
           width={24}
           height={24}
+          className="cursor-pointer"
         />
         <Image
           src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d6/Google_Lens_Icon.svg/192px-Google_Lens_Icon.svg.png?20230514215757"
           alt="Google Lens"
           width={24}
           height={24}
+          className="cursor-pointer"
         />
         </div>
       </form>
