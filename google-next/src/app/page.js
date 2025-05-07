@@ -13,6 +13,8 @@ export default function Home() {
           alt="logo image"
           width={300}
           height={100}
+          priority
+          style={{width: "auto"}}
         />
         <HomeSearch />
       </div>
