@@ -6,6 +6,11 @@ const nextConfig = {
                 protocol: 'https',
                 hostname: 'upload.wikimedia.org',
                 pathname: '**',
+            },
+            {
+                protocol: 'https',
+                hostname: 'www.gstatic.com',
+                pathname: '**',
             }
         ]
     }

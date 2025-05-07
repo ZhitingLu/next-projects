@@ -2,8 +2,8 @@
 
 import React, { useState } from "react";
 import { AiOutlineSearch } from "react-icons/ai";
-import { BsFillMicFill } from "react-icons/bs";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 export default function HomeSearch() {
   const [input, setInput] = useState("");
@@ -40,7 +40,20 @@ export default function HomeSearch() {
           className="flex-grow focus:outline-none"
           onChange={(e) => setInput(e.target.value)}
         />
-        <BsFillMicFill className="text-lg" />
+        <div className="flex gap-2">
+        <Image
+          src="https://www.gstatic.com/images/branding/googlemic/2x/googlemic_color_24dp.png"
+          alt="Mic"
+          width={24}
+          height={24}
+        />
+        <Image
+          src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d6/Google_Lens_Icon.svg/192px-Google_Lens_Icon.svg.png?20230514215757"
+          alt="Google Lens"
+          width={24}
+          height={24}
+        />
+        </div>
       </form>
       <div
         className="mt-8 flex flex-col space-y-2 
