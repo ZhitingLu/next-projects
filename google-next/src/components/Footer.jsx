@@ -11,10 +11,9 @@ export default function Footer() {
         <CountryLookup />
       </div>
 
-      <div className="flex flex-col sm:flex-row justify-between items-center px-8 py-3 space-y-7
+      <div className="flex flex-col sm:flex-row justify-between items-center px-20 py-3 space-y-7
       sm:space-y-0">
         <ul className="flex items-center space-x-6">
-          <li className="hover:underline cursor-pointer">About</li>
           <li className="hover:underline cursor-pointer">Advertising</li>
           <li className="hover:underline cursor-pointer">Business</li>
           <li className="hover:underline cursor-pointer">How Search Works</li>

@@ -62,7 +62,7 @@ export default function HomeSearch() {
       sm:space-y-0 justify-center sm:flex-row sm:space-x-4"
       >
         <button
-          className="bg-[#f8f9fa] rounded-md text-sx text-gray-800
+          className="bg-[#f8f9fa] rounded-md text-sm text-gray-800
          hover:ring-gray-200 focus:outline-none active:ring-gray-300
          hover:shadow-md w-36 h-10 transition-shadow cursor-pointer"
           onClick={handleSubmit}
@@ -72,13 +72,13 @@ export default function HomeSearch() {
 
         <button
           disabled={randomWordLoading}
-          className="bg-[#f8f9fa] rounded-md text-sx text-gray-800
+          className="bg-[#f8f9fa] rounded-md text-sm text-gray-800
          hover:ring-gray-200 focus:outline-none active:ring-gray-300
          hover:shadow-md w-36 h-10 transition-shadow cursor-pointer
          disabled:opacity-80"
           onClick={randomSearch}
         >
-          {randomWordLoading ? "Loading ..." : "Surprise Me!"}
+          {randomWordLoading ? "Loading ..." : "I'm Feeling Lucky"}
         </button>
       </div>
     </>
