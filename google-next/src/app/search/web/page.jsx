@@ -1,7 +1,8 @@
+import WebSerchResults from "@/components/WebSerchResults";
 import Link from "next/link";
 import React from "react";
 
-export default async function WebSearchPage({searchParams}) {
+export default async function WebSearchPage({ searchParams }) {
   const response = await fetch(
     `https://www.googleapis.com/customsearch/v1?key=${process.env.API_KEY}&cx=${process.env.CONTEXT_KEY}&q=${searchParams.searchTerm}`
   );
@@ -9,22 +10,22 @@ export default async function WebSearchPage({searchParams}) {
   const data = await response.json();
   const results = data.items;
 
-  if(!results) {
+  if (!results) {
     return (
-        <div className="flex flex-col justify-center items-center pt-10">
-            <h1 className="text-2xl mb-4">
-            No results found for <span className="italic text-gray-600">'{searchParams.searchTerm}'</span>
-            </h1>
-            <p className="text-lg">Try searching for something else</p>
-            <Link href='/' className="text-blue-500 mt-2">Home</Link>
-        </div>
+      <div className="flex flex-col justify-center items-center pt-10">
+        <h1 className="text-2xl mb-4">
+          No results found for{" "}
+          <span className="italic text-gray-600">
+            '{searchParams.searchTerm}'
+          </span>
+        </h1>
+        <p className="text-lg">Try searching for something else</p>
+        <Link href="/" className="text-blue-500 mt-2">
+          Home
+        </Link>
+      </div>
     );
   }
 
-  return (
-    <div>
-      {results &&
-        results.map((result, index) => <h1 key={index}>{result.title}</h1>)}
-    </div>
-  );
+  return <div>{results && <WebSerchResults results={data} />}</div>;
 }
