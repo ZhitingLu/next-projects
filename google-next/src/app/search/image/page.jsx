@@ -1,11 +1,9 @@
 import ClientImageResultsWrapper from "@/components/ClientImageResultsWrapper";
-import ImageSearchResults from "@/components/ImageSearchResults";
 import Link from "next/link";
-import { Suspense } from "react";
 
 export default async function ImageSearchPage({ searchParams }) {
-  const searchTerm = searchParams.searchTerm || "";
-  const startIndex = Number(searchParams.start) || 1;
+  const searchTerm = searchParams?.searchTerm || "";
+  const startIndex = Number(searchParams?.start) || 1;
   await new Promise((resolve) => setTimeout(resolve, 1000));
 
   const response = await fetch(
