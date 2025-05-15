@@ -5,7 +5,7 @@ import React from "react";
 export default async function ImageSearchPage({ searchParams }) {
   const params = await searchParams;
   const searchTerm = params.searchTerm || "";
-  const startIndex = Number(searchParams.start) || 1;
+  const startIndex = Number(params.start) || 1;
   await new Promise((resolve) => setTimeout(resolve, 1000));
 
   const response = await fetch(
@@ -22,7 +22,7 @@ export default async function ImageSearchPage({ searchParams }) {
         <h1 className="text-2xl mb-4">
           No results found for{" "}
           <span className="italic text-gray-600">
-            '{searchParams.searchTerm}'
+            '{searchTerm}'
           </span>
         </h1>
         <p className="text-lg">Try searching for something else</p>

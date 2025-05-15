@@ -21,7 +21,7 @@ export default async function WebSearchPage({ searchParams }) {
         <h1 className="text-2xl mb-4">
           No results found for{" "}
           <span className="italic text-gray-600">
-            '{searchParams.searchTerm}'
+            '{searchTerm}'
           </span>
         </h1>
         <p className="text-lg">Try searching for something else</p>
