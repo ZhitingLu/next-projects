@@ -1,3 +1,4 @@
+import ClientWebResultsWrapper from "@/components/ClientWebResultsWrapper";
 import WebSearchResults from "@/components/WebSearchResults";
 import Link from "next/link";
 import React, { Suspense } from "react";
@@ -29,9 +30,5 @@ export default async function WebSearchPage({ searchParams }) {
     );
   }
 
-  return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <WebSearchResults results={results} />
-    </Suspense>
-  );
+  return <ClientWebResultsWrapper results={results} />;
 }
