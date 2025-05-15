@@ -21,7 +21,9 @@ export default function SearchHeader() {
         </Link>
 
         <div className=" flex-1 ">
+        <Suspense fallback={<div>Searching...</div>}>
           <SearchBox />
+          </Suspense>
         </div>
 
         <div className="hidden md:inline-flex space-x-2">
