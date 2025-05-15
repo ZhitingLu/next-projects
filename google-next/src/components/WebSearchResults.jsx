@@ -1,9 +1,11 @@
+'use client';
+
 import Link from "next/link";
 import React from "react";
 import Parser from "html-react-parser";
 import PaginationButtons from "./PaginationButtons";
 
-export default function WebSerchResults({ results }) {
+export default function WebSearchResults({ results }) {
   return (
     <div
       className="w-full mx-auto px-3 pb-24 sm:pl-[5%] md:pl-[14%]
