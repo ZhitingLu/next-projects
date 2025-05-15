@@ -1,11 +1,11 @@
 import ClientWebResultsWrapper from "@/components/ClientWebResultsWrapper";
-import WebSearchResults from "@/components/WebSearchResults";
 import Link from "next/link";
-import React, { Suspense } from "react";
+import React from "react";
 
 export default async function WebSearchPage({ searchParams }) {
-  const startIndex = Number(searchParams.start) || 1;
-  const searchTerm = searchParams.searchTerm || "";
+  const params = await searchParams;
+  const startIndex = Number(params.start) || 1;
+  const searchTerm = params.searchTerm || "";
 
   await new Promise((resolve) => setTimeout(resolve, 1000));
   const response = await fetch(
