@@ -1,11 +1,9 @@
 import ImageSearchResults from "@/components/ImageSearchResults";
 import Link from "next/link";
-import React from "react";
 
 export default async function ImageSearchPage({ searchParams }) {
-  const params = await searchParams;
-  const searchTerm = params.searchTerm || "";
-  const startIndex = Number(params.start) || 1;
+  const searchTerm = searchParams.searchTerm || "";
+  const startIndex = Number(searchParams.start) || 1;
   await new Promise((resolve) => setTimeout(resolve, 1000));
 
   const response = await fetch(
@@ -20,7 +18,7 @@ export default async function ImageSearchPage({ searchParams }) {
     return (
       <div className="flex flex-col justify-center items-center pt-10">
         <h1 className="text-2xl mb-4">
-          No results found for{" "}
+          No results found for"{searchTerm}"
           <span className="italic text-gray-600">
             '{searchTerm}'
           </span>
