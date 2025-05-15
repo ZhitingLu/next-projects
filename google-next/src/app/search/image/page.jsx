@@ -1,5 +1,6 @@
-import ClientImageResultsWrapper from "@/components/ClientImageResultsWrapper";
+import ImageSearchResults from "@/components/ImageSearchResults";
 import Link from "next/link";
+import { Suspense } from "react";
 
 export default async function ImageSearchPage({ searchParams }) {
   const searchTerm = searchParams?.searchTerm || "";
@@ -29,5 +30,10 @@ export default async function ImageSearchPage({ searchParams }) {
     );
   }
 
-  return <ClientImageResultsWrapper results={results} />;
+
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <ImageSearchResults results={results} />
+    </Suspense>
+  )
 }
