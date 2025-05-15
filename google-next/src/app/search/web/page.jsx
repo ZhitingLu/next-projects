@@ -3,9 +3,8 @@ import Link from "next/link";
 import React from "react";
 
 export default async function WebSearchPage({ searchParams }) {
-  const params = await searchParams;
-  const startIndex = Number(params.start) || 1;
-  const searchTerm = params.searchTerm || "";
+  const startIndex = Number(searchParams.start) || 1;
+  const searchTerm = searchParams.searchTerm || "";
 
   await new Promise((resolve) => setTimeout(resolve, 1000));
   const response = await fetch(
