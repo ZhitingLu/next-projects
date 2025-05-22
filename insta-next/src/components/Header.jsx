@@ -1,6 +1,9 @@
+"use client";
+
 import Link from "next/link";
 import React from "react";
 import Image from "next/image";
+import { signIn } from "next-auth/react";
 
 export default function Header() {
   return (
@@ -22,7 +25,10 @@ export default function Header() {
           rounded text-sm w-full py-2 px-4 max-w-[210px]"
         />
         {/* menu items */}
-        <button className="text-sm font-semibold text-blue-500">Log In</button>
+        <button
+          onClick={() => signIn()}
+          className="text-sm font-semibold text-blue-500"
+        >Log In</button>
       </div>
     </div>
   );
