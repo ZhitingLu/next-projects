@@ -15,7 +15,9 @@ export default function Feed() {
 
       {/* posts (right) */}
       <section className="hidden md:inline-grid md:col-span-1">
-        <MiniProfile />
+        <div className="fixed w-[320px]">
+          <MiniProfile />
+        </div>
       </section>
     </main>
   );
