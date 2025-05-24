@@ -1,8 +1,10 @@
-import React from 'react'
+import Feed from "@/components/Feed";
+import React from "react";
 
 export default function Home() {
   return (
-    <div className=''>Home</div>
-  )
+    <>
+      <Feed />
+    </>
+  );
 }
-
