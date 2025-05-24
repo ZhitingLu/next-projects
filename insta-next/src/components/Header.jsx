@@ -15,14 +15,26 @@ import {
   ref,
   uploadBytesResumable,
 } from "firebase/storage";
+import {
+  collection,
+  addDoc,
+  getFirestore,
+  serverTimestamp,
+} from "firebase/firestore";
 
 export default function Header() {
   const { data: session } = useSession();
+  //   if (session) {
+  //     console.log(session);
+  //   }
   const [isOpen, setIsOpen] = useState(false);
   const [selectedFile, setSelectedFile] = useState(null);
   const [imageFileUrl, setImageFileUrl] = useState(null);
   const filePickerRef = useRef(null);
   const [imageFileUploading, setImageFileUploading] = useState(false);
+  const [postUploading, setPostUploading] = useState(false);
+  const db = getFirestore(app);
+  const [caption, setCaption] = useState("");
 
   const addImageToPost = (e) => {
     const file = e.target.files[0];
@@ -70,6 +82,24 @@ export default function Header() {
     );
   }
 
+  async function handleUploadPost() {
+    if (!imageFileUrl) return;
+
+    // Here you would typically send the imageFileUrl and caption to your backend
+    // to save the post in your database.
+    console.log("Image URL:", imageFileUrl);
+    setPostUploading(true);
+    const docRef = await addDoc(collection(db, "posts"), {
+      username: session.user.username,
+      caption,
+      profileImg: session.user.image,
+      image: imageFileUrl,
+      timestamp: serverTimestamp(),
+    });
+    setPostUploading(false);
+    setIsOpen(false);
+  }
+
   return (
     <div className="shadow-sm border-b-gray sticky top-0 bg-white z-30 p-3">
       <div className="flex justify-between items-center max-w-6xl mx-auto">
@@ -104,7 +134,7 @@ export default function Header() {
               onClick={() => setIsOpen(true)}
             />
             <img
-              src={session.user.image}
+              src={session.user.image || "/default-profile.png"}
               alt={session.user.name}
               className="h-10 w-10 rounded-full cursor-pointer"
               onClick={signOut}
@@ -156,9 +186,16 @@ export default function Header() {
             maxLength="150"
             className="m-4 border-none text-center w-full focus:ring-0 outline-none"
             placeholder="Please enter your caption..."
+            onChange={(e) => setCaption(e.target.value)}
           />
           <button
-            disabled
+            onClick={handleUploadPost}
+            disabled={
+              !selectedFile ||
+              caption.trim() === "" ||
+              postUploading ||
+              imageFileUploading
+            }
             className="w-full bg-red-600 text-white p-2 cursor-pointer rounded-lg shadow-md hover:brightness-105 disabled:bg-gray-200 
                 disabled:hover:brightness-100 disabled:cursor-not-allowed"
           >
