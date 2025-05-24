@@ -134,7 +134,7 @@ export default function Header() {
               onClick={() => setIsOpen(true)}
             />
             <img
-              src={session.user.image || "/default-profile.png"}
+              src={session.user.image || "/default-avatar-profile.jpg"}
               alt={session.user.name}
               className="h-10 w-10 rounded-full cursor-pointer"
               onClick={signOut}
