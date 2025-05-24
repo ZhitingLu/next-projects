@@ -8,7 +8,7 @@ export default function MiniProfile() {
   return (
     <div
       className="w-full flex items-center justify-between 
-    mt-14 ml-10 scroll-ml-10"
+    mt-14 ml-10"
     >
       <img
         className="w-16 h-16 rounded-full border p-[2px] cursor-pointer"
