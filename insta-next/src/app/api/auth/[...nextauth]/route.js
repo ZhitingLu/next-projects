@@ -1,6 +1,7 @@
 import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 const handler = NextAuth({
+  secret: process.env.NEXTAUTH_SECRET,
   // Configure one or more authentication providers
   providers: [
     GoogleProvider({
@@ -15,7 +16,7 @@ const handler = NextAuth({
       session.user.username = session.user.name
         .split(" ")
         .join("")
-        .toLocaleLowerCase();
+        .toLowerCase();
       session.user.uid = token.sub;
       return session;
     },
