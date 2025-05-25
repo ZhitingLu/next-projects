@@ -1,6 +1,6 @@
 "use client";
 
-import { React, useEffect, useState } from "react";
+import { React, useEffect, useState, useRef } from "react";
 import { useSession } from "next-auth/react";
 import {
   addDoc,
@@ -13,13 +13,21 @@ import {
 } from "firebase/firestore";
 import { app } from "@/firebase";
 import { formatDistanceToNow } from "date-fns";
+import EmojiPicker, { Emoji } from "emoji-picker-react"; // new
+import { FaRegSmile } from "react-icons/fa"; // emoji icon button
+import useClickOutside from "@/hooks/useClickOutside"; // custom hook to close emoji picker on outside click
 
 export default function CommentSection({ id }) {
   const { data: session } = useSession();
   const [comment, setComment] = useState("");
   const [comments, setComments] = useState([]); // Initialize comments state
+  const [showEmojiPicker, setShowEmojiPicker] = useState(false); // State to toggle emoji picker
+  const emojiPickerRef = useRef(null); // Ref for the emoji picker
 
   const db = getFirestore(app); // Initialize Firestore
+
+  // Use the custom hook to close picker on outside click
+  useClickOutside(emojiPickerRef, () => setShowEmojiPicker(false));
 
   async function handleSubmitComment(e) {
     e.preventDefault();
@@ -38,6 +46,10 @@ export default function CommentSection({ id }) {
       timestamp: serverTimestamp(),
     });
   }
+
+  const handleEmojiClick = (emojiData) => {
+    setComment((prev) => prev + emojiData.emoji);
+  };
 
   useEffect(() => {
     // This effect runs when the component mounts or when the session changes
@@ -94,6 +106,19 @@ export default function CommentSection({ id }) {
             alt="user image"
             className="h-10 w-10 rounded-full p-[4px] mr-2 object-cover cursor-pointer"
           />
+          <FaRegSmile
+            className="text-xl cursor-pointer text-gray-500"
+            onClick={() => setShowEmojiPicker(!showEmojiPicker)}
+          />
+          {showEmojiPicker && (
+            <div
+              ref={emojiPickerRef}
+              className="absolute bottom-14 left-12 z-20"
+            >
+              <EmojiPicker onEmojiClick={handleEmojiClick} />
+            </div>
+          )}
+
           <input
             type="text"
             className="border-none flex-1 focus:ring-0 focus:border-none outline-none"
