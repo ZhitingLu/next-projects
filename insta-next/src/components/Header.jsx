@@ -87,17 +87,21 @@ export default function Header() {
 
     // Here you would typically send the imageFileUrl and caption to your backend
     // to save the post in your database.
-    console.log("Image URL:", imageFileUrl);
+
     setPostUploading(true);
-    const docRef = await addDoc(collection(db, "posts"), {
+    await addDoc(collection(db, "posts"), {
       username: session.user.username,
       caption,
       profileImg: session.user.image,
       image: imageFileUrl,
       timestamp: serverTimestamp(),
     });
+    // Reset states and close modal
     setPostUploading(false);
     setIsOpen(false);
+    setCaption("");
+    setSelectedFile(null);
+    setImageFileUrl(null);
   }
 
   return (
