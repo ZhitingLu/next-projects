@@ -7,10 +7,13 @@ import CommentSection from "./CommentSection";
 import { getFirestore, doc, deleteDoc } from "firebase/firestore";
 import { app } from "../firebase";
 import toast from "react-hot-toast";
+import { useSession } from "next-auth/react";
 
 export default function Post({ post }) {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const db = getFirestore(app);
+  const { data: session } = useSession();
+  const isAuthor = session?.user?.username === post.username;
 
   const handleDeletePost = async () => {
     try {
@@ -23,8 +26,6 @@ export default function Post({ post }) {
     }
   };
 
-
-
   return (
     <div className="bg-white my-7 border rounded-md relative">
       <div className="flex items-center p-5 border-b border-gray-100">
@@ -35,13 +36,15 @@ export default function Post({ post }) {
         border p-1 mr-3"
         />
         <p className="flex-1 font-bold">{post.username} </p>
-        <HiOutlineDotsVertical
-          className="h-5 w-5 cursor-pointer"
-          onClick={() => setDropdownOpen(!dropdownOpen)}
-        />
+        {isAuthor && (
+          <HiOutlineDotsVertical
+            className="h-5 w-5 cursor-pointer"
+            onClick={() => setDropdownOpen(!dropdownOpen)}
+          />
+        )}
       </div>
 
-      {dropdownOpen && (
+      {dropdownOpen && isAuthor && (
         <div className="absolute right-5 top-16 bg-white border rounded-md shadow-lg z-10">
           <button
             className="text-red-500 text-sm hover:bg-red-50 px-4 py-2 w-full text-left cursor-pointer rounded"
