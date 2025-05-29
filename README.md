@@ -2,6 +2,11 @@
 
 A collection of fully functional, production-ready projects built with **Next.js 15**, using the latest best practices.
 
+## Live links
+-  **[🎬 IMDb Clone](https://imdb-next-green.vercel.app/)**
+-  **[🌐 Google Clone](https://google-next-blue-eta.vercel.app/)**
+-  **[📷 Instagram Clone](https://next-projects-dusky.vercel.app/)**
+
 These projects demonstrate:
 
 - Static Site Generation (SSG)
