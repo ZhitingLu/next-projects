@@ -59,7 +59,7 @@ npm install
 Copy the .env.example file and rename it if needed:
 
 ```bash
-cp .env.example .env.local
+.env
 ```
 Fill in your API keys (Firebase, TMDB, Google, etc.)
 
