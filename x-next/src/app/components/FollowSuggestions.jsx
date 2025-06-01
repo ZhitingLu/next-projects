@@ -3,7 +3,7 @@ import FollowCard from "./FollowCard";
 
 export default function FollowSuggestions() {
   return (
-    <div className="border border-gray-100 rounded-xl pt-3 my-3">
+    <div className="border border-gray-100 rounded-xl pt-3">
       <div className="flex flex-col gap-2">
         <h2 className="text-xl font-bold px-3">Who to follow</h2>
         <FollowCard name="Zhiting Lu" username="zlu" avatar="/avatar1.png" verified={true} />
