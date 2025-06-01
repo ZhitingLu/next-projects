@@ -1,4 +1,5 @@
 import Input from "./components/Input";
+import Link from "next/link";
 
 export default function Home({ searchParams }) {
   const tab = searchParams.tab || "foryou";
@@ -8,7 +9,7 @@ export default function Home({ searchParams }) {
         className="sticky top-0 z-50 bg-white border-b border-gray-100
       flex justify-between items-center "
       >
-         <a
+         <Link
             href="/?tab=foryou"
             className={`w-1/2 px-4 py-3 hover:bg-gray-200 text-center pb-3 font-semibold text-sm sm:text-base transition-all duration-200 cursor-pointer ${
               tab === "foryou"
@@ -17,10 +18,10 @@ export default function Home({ searchParams }) {
             }`}
           >
             For you
-          </a>
+          </Link>
       
-         <a
-            href="/?tab=following"
+         <Link 
+         href="/?tab=following"
             className={`w-1/2 px-4 py-3 hover:bg-gray-200 text-center pb-3 font-semibold text-sm sm:text-base transition-all duration-200 cursor-pointer ${
               tab === "following"
                 ? "border-b-4 border-blue-400 text-black"
@@ -28,7 +29,7 @@ export default function Home({ searchParams }) {
             }`}
           >
             Following
-          </a>
+          </Link>
        
       </div>
       <Input />
