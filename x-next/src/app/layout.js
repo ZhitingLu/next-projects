@@ -30,8 +30,9 @@ export default function RootLayout({ children }) {
         <body
           className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         >
-          <div className="flex justify-between max-w-7xl mx-auto min-h-screen">
-            <div className="hidden sm:flex w-[280px] flex-col border-r border-gray-200 h-screen">
+          <div className="flex justify-between max-w-7xl mx-auto min-h-screen px-4 sm:px-0 lg:px-8">
+
+            <div className="hidden sm:flex w-16 xl:w-[280px] border-r border-gray-100 flex-col h-screen">
               <Sidebar />
             </div>
 
@@ -39,7 +40,7 @@ export default function RootLayout({ children }) {
               {children}
             </div>
 
-            <div className="hidden lg:flex flex-col gap-3 w-[22rem] h-screen ">
+            <div className="hidden lg:flex flex-col gap-3 w-[22rem] h-screen pl-4">
               <SearchBar />
               <Subscription />
               <FollowSuggestions />
