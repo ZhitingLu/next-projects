@@ -4,7 +4,7 @@ import { MdVerified } from "react-icons/md";
 
 export default function FollowCard({ name, username, avatar, verified }) {
   return (
-    <div className="flex items-center justify-between cursor-pointer hover:bg-gray-100 p-2 rounded">
+    <div className="flex items-center justify-between cursor-pointer hover:bg-gray-100 px-3 py-2 rounded">
       <div className="flex items-center justify-between">
         <Image
           src={avatar}
