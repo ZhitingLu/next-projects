@@ -36,7 +36,7 @@ export default function RootLayout({ children }) {
               <Sidebar />
             </div>
 
-            <div className="flex-grow min-w-0 max-w-[600px] mx-auto border-r border-gray-100">
+            <div className="flex-grow min-w-0 max-w-[600px] mx-auto border-r border-gray-100 w-2xl flex-1" >
               {children}
             </div>
 
