@@ -127,14 +127,14 @@ export default function Sidebar() {
       </Link>
 
       <button className="bg-slate-900 text-white rounded-full
-      hover:brightness-95 transition-all duration-200 w-48 h-12
+      hover:brightness-95 transition-all duration-200 w-58 h-12
       cursor-pointer shadow-md font-semibold">Post</button>
 
       {session ? (
         <button
           onClick={() => signOut()}
           className="bg-blue-400 text-white rounded-full 
-hover:brightness-95 transition-all duration-200 w-48 h-9
+hover:brightness-95 transition-all duration-200 w-58 h-12
  cursor-pointer shadow-md hidden xl:inline font-semibold"
         >
           Sign out
@@ -143,7 +143,7 @@ hover:brightness-95 transition-all duration-200 w-48 h-9
         <button
           onClick={() => signIn()}
           className="bg-blue-400 text-white rounded-full 
-    hover:brightness-95 transition-all duration-200 w-48 h-9
+    hover:brightness-95 transition-all duration-200 w-58 h-12
         cursor-pointer shadow-md hidden xl:inline font-semibold"
         >
           Sign in
