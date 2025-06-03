@@ -13,6 +13,12 @@ import {
   getDownloadURL,
 } from "firebase/storage";
 import { app } from "@/firebase";
+import {
+  addDoc,
+  collection,
+  getFirestore,
+  serverTimestamp,
+} from "firebase/firestore";
 
 export default function Input() {
   const { data: session } = useSession();
@@ -21,7 +27,9 @@ export default function Input() {
   const [imageFileUrl, setImageFileUrl] = useState(null);
   const [selectedImageFile, setSelectedImageFile] = useState(null);
   const [imageFileUploading, setImageFileUploading] = useState(false);
+  const [postLoading, setPostLoading] = useState(false);
   const [text, setText] = useState("");
+  const db = getFirestore(app);
 
   const handleImagePick = (e) => {
     const file = e.target.files[0];
@@ -72,7 +80,22 @@ export default function Input() {
     setText(e.target.value);
   };
 
-  const isPostEnabled = text.trim() !== "" || selectedImageFile;
+  const handlePostSubmit = async () => {
+    setPostLoading(true);
+    const docRef = await addDoc(collection(db, "posts"), {
+      uid: session.user.uid,
+      name: session.user.name,
+      username: session.user.name,
+      profileImg: session.user.image,
+      text: text.trim(),
+      image: imageFileUrl || null,
+      timestamp: serverTimestamp(),
+    });
+    setPostLoading(false);
+    setText("");
+    setImageFileUrl(null);
+    setSelectedImageFile(null);
+  };
 
   if (!session) return null;
 
@@ -89,16 +112,19 @@ export default function Input() {
           placeholder="What's happening?"
           onInput={handleTextareaResize}
           row={2}
+          value={text}
+          onChange={(e) => setText(e.target.value)}
           className="w-full border-b border-gray-100 outline-none tracking-wide min-h-[50px]
            text-gray-900  text-xl placeholder:text-gray-600 placeholder:text-xl 
            resize-none overflow-hidden pt-2 pb-2"
-        
         ></textarea>
         {selectedImageFile && (
           <img
             src={imageFileUrl}
             alt="Selected"
-            className="mt-2 max-h-60 cursor-pointer object-cover"
+            className={`mt-2 max-h-60 cursor-pointer object-cover ${
+              imageFileUploading ? "animate-pulse" : ""
+            }`}
           />
         )}
         <div className="flex items-center justify-between pt-1.5">
@@ -121,8 +147,9 @@ export default function Input() {
             <IoLocationOutline className="h-9 w-9 p-2 text-sky-500 hover:bg-sky-100 rounded-full cursor-pointer" />
           </div>
           <button
-            disabled={!isPostEnabled}
-            className="bg-slate-900 text-white px-4 py-1.5 rounded-full font-bold shadow-md hover:brightness-95 disabled:opacity-50"
+            disabled={text.trim() === "" || imageFileUploading || postLoading}
+            className="bg-slate-900 text-white px-4 py-1.5 rounded-full font-bold shadow-md not-disabled:cursor-pointer hover:brightness-95 disabled:opacity-50"
+            onClick={handlePostSubmit}
           >
             Post
           </button>
