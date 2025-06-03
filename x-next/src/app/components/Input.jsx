@@ -17,9 +17,11 @@ import { app } from "@/firebase";
 export default function Input() {
   const { data: session } = useSession();
   const imagePickRef = useRef(null);
+  const textareaRef = useRef(null);
   const [imageFileUrl, setImageFileUrl] = useState(null);
   const [selectedImageFile, setSelectedImageFile] = useState(null);
   const [imageFileUploading, setImageFileUploading] = useState(false);
+  const [text, setText] = useState("");
 
   const handleImagePick = (e) => {
     const file = e.target.files[0];
@@ -62,6 +64,16 @@ export default function Input() {
     );
   };
 
+  const handleTextareaResize = (e) => {
+    const textarea = e.target;
+
+    textarea.style.height = "auto"; // Reset height to auto to shrink if needed
+    textarea.style.height = `${textarea.scrollHeight}px`; // Set height to scrollHeight to expand
+    setText(e.target.value);
+  };
+
+  const isPostEnabled = text.trim() !== "" || selectedImageFile;
+
   if (!session) return null;
 
   return (
@@ -73,9 +85,14 @@ export default function Input() {
       />
       <div className="w-full divide-y divide-gray-100 ">
         <textarea
+          ref={textareaRef}
           placeholder="What's happening?"
-          row="3"
-          className="w-full border-b border-gray-100 outline-none tracking-wide min-h-[50px] text-gray-700 placeholder:text-gray-600 placeholder:text-xl"
+          onInput={handleTextareaResize}
+          row={2}
+          className="w-full border-b border-gray-100 outline-none tracking-wide min-h-[50px]
+           text-gray-900  text-xl placeholder:text-gray-600 placeholder:text-xl 
+           resize-none overflow-hidden pt-2 pb-2"
+        
         ></textarea>
         {selectedImageFile && (
           <img
@@ -104,7 +121,7 @@ export default function Input() {
             <IoLocationOutline className="h-9 w-9 p-2 text-sky-500 hover:bg-sky-100 rounded-full cursor-pointer" />
           </div>
           <button
-            disabled
+            disabled={!isPostEnabled}
             className="bg-slate-900 text-white px-4 py-1.5 rounded-full font-bold shadow-md hover:brightness-95 disabled:opacity-50"
           >
             Post
