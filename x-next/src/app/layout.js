@@ -32,7 +32,7 @@ export default function RootLayout({ children }) {
         >
           <div className="flex justify-between max-w-7xl mx-auto min-h-screen px-4 sm:px-0 lg:px-8">
 
-            <div className="hidden sm:flex w-16 xl:w-[280px] border-r border-gray-100 flex-col h-screen">
+            <div className="hidden sm:flex w-16 xl:w-[280px] border-r border-gray-100 flex-col h-screen sticky top-0">
               <Sidebar />
             </div>
 
