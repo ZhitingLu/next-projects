@@ -5,7 +5,7 @@ import Link from "next/link";
 export default function Home({ searchParams }) {
   const tab = searchParams.tab || "foryou";
   return (
-    <div className="max-w-xl mx-auto">
+    <div className="">
       <div
         className="sticky top-0 z-50 bg-white border-b border-gray-100
       flex justify-between items-center "
