@@ -55,6 +55,7 @@ export default function Icons({ id }) {
         className="h-8 w-8 cursor-pointer rounded-full transition 
         duration-500 ease-in-out p-2 hover:text-sky-600 hover:bg-sky-100"
       />
+      <div className="flex items-center ">
       {isLiked ? (
         <HiHeart
           onClick={likePost}
@@ -68,6 +69,12 @@ export default function Icons({ id }) {
         duration-500 ease-in-out p-2 hover:text-red-500 hover:bg-red-100"
         />
       )}
+      {likes.length > 0 && (
+        <span className={`text-xs text-gray-600 ${isLiked && "text-red-600"}`}>
+          {likes.length > 999 ? `${(likes.length / 1000).toFixed(1)}k` : likes.length}
+        </span>
+      )}
+      </div>
 
       <HiOutlineTrash
         className="h-8 w-8 cursor-pointer rounded-full transition 
