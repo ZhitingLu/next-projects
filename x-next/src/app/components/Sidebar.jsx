@@ -142,7 +142,7 @@ export default function Sidebar() {
 
         <button
           className="bg-slate-900 text-white rounded-full
-      hover:brightness-95 transition-all duration-200 w-58 h-12
+      hover:brightness-95 transition-all duration-200 w-full h-12
       cursor-pointer shadow-md font-semibold hidden xl:inline"
         >
           Post
@@ -193,7 +193,7 @@ export default function Sidebar() {
       ) : (
         <button
           onClick={() => signIn()}
-          className="bg-blue-400 text-white rounded-full hover:brightness-95 transition-all duration-200 w-58 h-12 cursor-pointer shadow-md hidden xl:inline font-semibold"
+          className="bg-blue-400 text-white rounded-full hover:brightness-95 transition-all duration-200 w-full h-12 cursor-pointer shadow-md hidden xl:inline font-semibold"
         >
           Sign in
         </button>
