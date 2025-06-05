@@ -85,7 +85,7 @@ export default function Input() {
     const docRef = await addDoc(collection(db, "posts"), {
       uid: session.user.uid,
       name: session.user.name,
-      username: session.user.name,
+      username: session.user.username,
       profileImg: session.user.image,
       text: text.trim(),
       image: imageFileUrl || null,
@@ -122,9 +122,8 @@ export default function Input() {
           <img
             src={imageFileUrl}
             alt="Selected"
-            className={`mt-2 max-h-60 cursor-pointer object-cover ${
-              imageFileUploading ? "animate-pulse" : ""
-            }`}
+            className={`mt-2 max-h-60 cursor-pointer object-cover ${imageFileUploading ? "animate-pulse" : ""
+              }`}
           />
         )}
         <div className="flex items-center justify-between pt-1.5">
