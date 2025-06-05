@@ -7,7 +7,7 @@ export default function Home({ searchParams }) {
   return (
     <div className="">
       <div
-        className="sticky top-0 z-50 bg-white border-b border-gray-100
+        className="sticky top-0 z-30 bg-white border-b border-gray-100
       flex justify-between items-center "
       >
         <Link
