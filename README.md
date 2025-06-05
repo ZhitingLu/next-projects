@@ -14,7 +14,6 @@ These projects demonstrate:
 - Server-Side Rendering (SSR)
 - Incremental Static Regeneration (ISR)
 - Pagination, Image Uploading
-- State Management with Recoil
 - Responsive UI with Tailwind CSS (latest)
 - Authentication with NextAuth.js
 - Database and Storage with Firebase
