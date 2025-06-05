@@ -48,7 +48,6 @@ export default function Icons({ id, uid }) {
   }, [id, db]);
 
   useEffect(() => {
-    //TODO : This is not the best way to check if the user has liked the post. FIX NEEDED
     setIsLiked(
       likes.findIndex((like) => like.id === session?.user?.uid) !== -1
     );
