@@ -6,6 +6,7 @@ import SessionWrapper from "./components/SessionWrapper";
 import Sidebar from "./components/Sidebar";
 import Subscription from "./components/Subscription";
 import "./globals.css";
+import { Toaster } from "react-hot-toast";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -30,6 +31,8 @@ export default function RootLayout({ children }) {
         <body
           className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         >
+          <Toaster />
+
           <div className="flex justify-between max-w-7xl mx-auto min-h-screen px-4 sm:px-0 lg:px-8">
 
             <div className="hidden sm:flex w-16 xl:w-[280px] border-r border-gray-100 flex-col h-screen sticky top-0">
