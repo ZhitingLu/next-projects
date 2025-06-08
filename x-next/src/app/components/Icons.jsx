@@ -68,6 +68,7 @@ export default function Icons({ id, uid }) {
           position: "top-center",
         }
       );
+      return; // Prevent further execution if not signed in
     }
     if (isLiked) {
       await deleteDoc(doc(db, "posts", id, "likes", session?.user?.uid));
@@ -104,6 +105,10 @@ export default function Icons({ id, uid }) {
           <div className="flex flex-col items-center gap-2 mt-2">
             <button
               onClick={async () => {
+                if (session?.user?.uid !== uid) {
+                    toast.error("You can only delete your own posts");
+                    return;
+                }
                 try {
                   await deleteDoc(doc(db, "posts", postId));
                   toast.success("Post deleted successfully");
