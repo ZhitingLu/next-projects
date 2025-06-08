@@ -191,12 +191,14 @@ export default function Sidebar() {
           )}
         </div>
       ) : (
-        <button
-          onClick={() => signIn()}
-          className="bg-blue-400 text-white rounded-full hover:brightness-95 transition-all duration-200 w-full h-12 cursor-pointer shadow-md hidden xl:inline font-semibold"
-        >
-          Sign in
-        </button>
+        <div className="w-[75%]">
+          <button
+            onClick={() => signIn()}
+            className="bg-blue-400 text-white rounded-full hover:brightness-95 transition-all duration-200 w-full h-12 cursor-pointer shadow-md hidden xl:inline font-semibold"
+          >
+            Sign in
+          </button>
+        </div>
       )}
     </div>
   );
