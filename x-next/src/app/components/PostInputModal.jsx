@@ -14,7 +14,7 @@ export default function PostInputModal() {
   if (!isOpen || modalType !== "post") return null;
 
   return createPortal(
-    <div className="fixed inset-0 z-50 bg-gray-900/20 flex justify-center items-start pt-20 px-4">
+    <div className="fixed inset-0 z-50 bg-gray-900/30 flex justify-center items-start pt-20 px-4">
       <div className="bg-white rounded-xl shadow-lg max-w-xl w-full p-4 relative">
         <button
           onClick={closeModal}

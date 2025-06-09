@@ -14,7 +14,7 @@ export default function AuthModal() {
   if (!isOpen || modalType !== "auth") return null;
 
   return createPortal(
-    <div className="fixed inset-0 z-50 bg-gray-800/20 ">
+    <div className="fixed inset-0 z-50 bg-gray-800/30 ">
       <div
         className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 
       bg-white rounded-xl shadow-xl max-w-md w-full p-6"

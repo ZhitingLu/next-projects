@@ -12,7 +12,7 @@ export default function CommentModal() {
 
   return (
     <>
-      <div className="fixed inset-0 bg-gray-800/20 z-40" />
+      <div className="fixed inset-0 bg-gray-800/30 z-40" />
       <div className="fixed inset-0 flex items-center justify-center z-50">
         <div className="bg-white p-6 rounded-lg max-w-md w-full relative">
           <button
