@@ -3,12 +3,12 @@
 A collection of fully functional, production-ready projects built with **Next.js 15**, using the latest best practices.
 
 ## Live links
--  **[🎬 IMDb Clone](https://imdb-next-green.vercel.app/)**
--  **[🌐 Google Clone](https://google-next-blue-eta.vercel.app/)**
--  **[📷 Instagram Clone](https://next-projects-dusky.vercel.app/)** (Signin with your Google account and upload a post.)
--  **[✖️ X Clone](https://next-projects-orcin.vercel.app/)** (In progress)
--  
-These projects demonstrate:
+
+- **[🎬 IMDb Clone](https://imdb-next-green.vercel.app/)**
+- **[🌐 Google Clone](https://google-next-blue-eta.vercel.app/)**
+- **[📷 Instagram Clone](https://next-projects-dusky.vercel.app/)** (Signin with your Google account and upload a post.)
+- **[✖️ X Clone](https://next-projects-orcin.vercel.app/)** (In progress)
+- These projects demonstrate:
 
 - Static Site Generation (SSG)
 - Server-Side Rendering (SSR)
@@ -17,6 +17,7 @@ These projects demonstrate:
 - Responsive UI with Tailwind CSS (latest)
 - Authentication with NextAuth.js
 - Database and Storage with Firebase
+- State Management with Zustand
 - API integrations (TMDB, Google Search API)
 - Deploy applications seamlessly on Vercel
 
@@ -28,7 +29,7 @@ These projects demonstrate:
 - **Tailwind CSS** - Utility-first CSS
 - **Firebase** - Database, Authentication, and Storage
 - **NextAuth.js** - Authentication and OAuth flows
-- **Recoil** - State management for React
+- **Zustand** - State management for React
 - **TMDB API** - Movie database API
 - **Google Search API** - Web search integration
 
@@ -50,8 +51,8 @@ cd next-projects
 ```bash
 cd project-folder-name
 ```
-Replace project-folder-name with the project you want to run.
 
+Replace project-folder-name with the project you want to run.
 
 ### 3. Install dependencies:
 
@@ -59,29 +60,32 @@ Replace project-folder-name with the project you want to run.
 npm install
 ```
 
-
 ### 4. Create environment variables:
+
 Copy the .env.example file and rename it if needed:
 
 ```bash
 .env
 ```
+
 Fill in your API keys (Firebase, TMDB, Google, etc.)
 
-
 ### 5. Run the development server:
+
 ```bash
 npm run dev
 ```
+
 Visit http://localhost:3000 🚀
 
 ---
 
 ### 📚 Topics Covered
+
 - Static vs Server Rendering
 - App Router best practices
 - API Routes and Server Actions
-- Recoil State Management
+- Zustand State Management
 - Tailwind Responsive Design
 - Firebase Storage and Database
 - NextAuth Authentication
@@ -91,9 +95,11 @@ Visit http://localhost:3000 🚀
 ---
 
 ### 🤝 Contributing
+
 Contributions, ideas, and suggestions are welcome!
 
 ---
 
 ### 📜 License
+
 Open source under the MIT License.
