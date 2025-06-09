@@ -20,6 +20,7 @@ import { CgMoreO } from "react-icons/cg";
 import { toast } from "react-hot-toast";
 import PostInputModal from "./PostInputModal";
 import useModalStore from "../stores/modalStore";
+import AuthModal from "./AuthModal";
 
 export default function Sidebar() {
   const { data: session } = useSession();
@@ -41,47 +42,11 @@ export default function Sidebar() {
 
   const handlePostModal = () => {
     if (!session?.user) {
-      toast(
-        (t) => (
-          <div className="flex flex-col gap-2 bg-white p-4 rounded max-w-md z-50">
-            <h2 className="font-bold text-lg text-slat-900">
-              Please sign in to like this post
-            </h2>
-            <div className="flex flex-col items-center gap-2 mt-2">
-              <button
-                onClick={() => {
-                  toast.dismiss(t.id);
-                  signIn();
-                }}
-                className="px-3 py-1 bg-[var(--twitter-blue)] text-white rounded-full
-                  hover:brightness-95 transition-all duration-200 w-full h-11
-                  cursor-pointer shadow-md font-semibold hidden xl:inline"
-              >
-                Ok
-              </button>
-              <button
-                onClick={() => {
-                  toast.dismiss(t.id);
-                }}
-                className="px-3 py-1 border rounded-full hover:bg-gray-100 text-slate-900
-                  hover:brightness-95 transition-all duration-200 w-full h-11
-                  cursor-pointer shadow-md font-semibold hidden xl:inline"
-              >
-                Close
-              </button>
-            </div>
-          </div>
-        ),
-        {
-          duration: Infinity,
-          position: "top-center",
-        }
-      );
+      openModal("auth"); // opens Zustand auth modal
     } else {
-      openModal(); // opens Zustand modal
+      openModal("post"); // opens Zustand post modal
     }
   };
-  
 
   return (
     <>
@@ -198,10 +163,9 @@ export default function Sidebar() {
             Post
           </button>
 
-          
-            <PostInputModal
-            />
-         
+          {/* Modals rendered once and controlled globally */}
+          <AuthModal />
+          <PostInputModal />
         </div>
 
         {session ? (
