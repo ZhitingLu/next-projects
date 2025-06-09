@@ -7,6 +7,9 @@ import Sidebar from "./components/Sidebar";
 import Subscription from "./components/Subscription";
 import "./globals.css";
 import { Toaster } from "react-hot-toast";
+import AuthModal from "./components/AuthModal";
+import PostInputModal from "./components/PostInputModal";
+import CommentModal from "./components/CommentModal";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -32,6 +35,9 @@ export default function RootLayout({ children }) {
           className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         >
           <Toaster />
+          <AuthModal />
+          <PostInputModal />
+          <CommentModal />
 
           <div className="flex justify-between max-w-7xl mx-auto min-h-screen px-4 sm:px-0 lg:px-8">
 

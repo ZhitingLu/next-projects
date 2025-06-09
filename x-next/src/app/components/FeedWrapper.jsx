@@ -2,7 +2,6 @@
 // Real-time updates with Firestore
 // Automatically reacts to data changes
 "use client";
-import { useEffect, useState } from "react";
 import {
   collection,
   getFirestore,
@@ -10,6 +9,7 @@ import {
   orderBy,
   query,
 } from "firebase/firestore";
+import { useEffect, useState } from "react";
 import Post from "./Post";
 
 export default function FeedWrapper({ initialPosts }) {
