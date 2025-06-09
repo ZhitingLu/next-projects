@@ -19,13 +19,13 @@ import { BsPeople } from "react-icons/bs";
 import { CgMoreO } from "react-icons/cg";
 import { toast } from "react-hot-toast";
 import PostInputModal from "./PostInputModal";
+import useModalStore from "../stores/modalStore";
 
 export default function Sidebar() {
   const { data: session } = useSession();
   const [showLogout, setShowLogout] = useState(false);
   const dropdownRef = useRef(null);
-  const [showBackdrop, setShowBackdrop] = useState(false);
-  const [showInputModal, setShowInputModal] = useState(false);
+  const { openModal } = useModalStore();
 
   useEffect(() => {
     const handleClickOutside = (e) => {
@@ -41,35 +41,31 @@ export default function Sidebar() {
 
   const handlePostModal = () => {
     if (!session?.user) {
-      setShowBackdrop(true);
       toast(
         (t) => (
           <div className="flex flex-col gap-2 bg-white p-4 rounded max-w-md z-50">
             <h2 className="font-bold text-lg text-slat-900">
               Please sign in to like this post
             </h2>
-
             <div className="flex flex-col items-center gap-2 mt-2">
               <button
                 onClick={() => {
                   toast.dismiss(t.id);
                   signIn();
-                  setShowBackdrop(false);
                 }}
                 className="px-3 py-1 bg-[var(--twitter-blue)] text-white rounded-full
-            hover:brightness-95 transition-all duration-200 w-full h-11
-            cursor-pointer shadow-md font-semibold hidden xl:inline"
+                  hover:brightness-95 transition-all duration-200 w-full h-11
+                  cursor-pointer shadow-md font-semibold hidden xl:inline"
               >
                 Ok
               </button>
               <button
                 onClick={() => {
                   toast.dismiss(t.id);
-                  setShowBackdrop(false);
                 }}
                 className="px-3 py-1 border rounded-full hover:bg-gray-100 text-slate-900
-            hover:brightness-95 transition-all duration-200 w-full h-11
-            cursor-pointer shadow-md font-semibold hidden xl:inline"
+                  hover:brightness-95 transition-all duration-200 w-full h-11
+                  cursor-pointer shadow-md font-semibold hidden xl:inline"
               >
                 Close
               </button>
@@ -81,16 +77,14 @@ export default function Sidebar() {
           position: "top-center",
         }
       );
-      return; // Prevent further execution if not signed in
     } else {
-      setShowBackdrop(false);
-      setShowInputModal(true);
+      openModal(); // opens Zustand modal
     }
   };
+  
 
   return (
     <>
-      {showBackdrop && <div className="fixed inset-0 bg-black/50 z-[9999]" />}
       <div className="flex flex-col justify-between h-full p-3 items-center">
         {/* Top menu */}
         <div className="flex flex-col gap-2">
@@ -204,12 +198,10 @@ export default function Sidebar() {
             Post
           </button>
 
-          {showInputModal && (
+          
             <PostInputModal
-              isOpen={showInputModal}
-              onClose={() => setShowInputModal(false)}
             />
-          )}
+         
         </div>
 
         {session ? (
