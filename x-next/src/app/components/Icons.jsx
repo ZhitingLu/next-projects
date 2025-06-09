@@ -37,6 +37,14 @@ export default function Icons({ id, uid }) {
     }
   };
 
+  const handleCommentModal = () => {
+    if (!session?.user) {
+      openModal("auth"); // Opens Zustand auth modal
+      return; // Prevent further execution if not signed in
+    }
+    openModal("comment", { postId: id }); // Opens Zustand comment modal with post ID
+  }
+
   useEffect(() => {
     onSnapshot(collection(db, "posts", id, "likes"), (snapshot) => {
       setLikes(snapshot.docs);
@@ -108,6 +116,7 @@ export default function Icons({ id, uid }) {
       {showBackdrop && <div className="fixed inset-0 bg-black/50 z-50" />}
       <div className="flex justify-start gap-5 text-gray-500 mt-2">
         <HiOutlineChat
+        onClick={handleCommentModal}
           className="h-8 w-8 cursor-pointer rounded-full transition 
         duration-500 ease-in-out p-2 hover:text-sky-600 hover:bg-sky-100"
         />
