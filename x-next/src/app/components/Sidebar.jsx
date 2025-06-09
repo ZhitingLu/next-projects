@@ -17,7 +17,6 @@ import { FaRegBookmark } from "react-icons/fa";
 import { LuBriefcaseBusiness } from "react-icons/lu";
 import { BsPeople } from "react-icons/bs";
 import { CgMoreO } from "react-icons/cg";
-import { toast } from "react-hot-toast";
 import PostInputModal from "./PostInputModal";
 import useModalStore from "../stores/modalStore";
 import AuthModal from "./AuthModal";
