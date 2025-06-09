@@ -1,25 +1,22 @@
 "use client";
 
-import React, { useState, useRef, useEffect } from "react";
-import { FaXTwitter } from "react-icons/fa6";
-import { HiHome } from "react-icons/hi";
+import { signIn, signOut, useSession } from "next-auth/react";
 import Link from "next/link";
-import { signIn, signOut } from "next-auth/react";
-import { useSession } from "next-auth/react";
-import { FiSearch } from "react-icons/fi";
-import {
-  IoNotificationsOutline,
-  IoFlashOutline,
-  IoPersonOutline,
-} from "react-icons/io5";
-import { RiInboxLine, RiMoreFill } from "react-icons/ri";
-import { FaRegBookmark } from "react-icons/fa";
-import { LuBriefcaseBusiness } from "react-icons/lu";
+import { useEffect, useRef, useState } from "react";
 import { BsPeople } from "react-icons/bs";
 import { CgMoreO } from "react-icons/cg";
-import PostInputModal from "./PostInputModal";
+import { FaRegBookmark } from "react-icons/fa";
+import { FaXTwitter } from "react-icons/fa6";
+import { FiSearch } from "react-icons/fi";
+import { HiHome } from "react-icons/hi";
+import {
+  IoFlashOutline,
+  IoNotificationsOutline,
+  IoPersonOutline,
+} from "react-icons/io5";
+import { LuBriefcaseBusiness } from "react-icons/lu";
+import { RiInboxLine, RiMoreFill } from "react-icons/ri";
 import useModalStore from "../stores/modalStore";
-import AuthModal from "./AuthModal";
 
 export default function Sidebar() {
   const { data: session } = useSession();
@@ -163,8 +160,7 @@ export default function Sidebar() {
           </button>
 
           {/* Modals rendered once and controlled globally */}
-          <AuthModal />
-          <PostInputModal />
+        
         </div>
 
         {session ? (

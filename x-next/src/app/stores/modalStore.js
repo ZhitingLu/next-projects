@@ -2,7 +2,7 @@ import { create } from "zustand";
 
 const useModalStore = create((set) => ({
   isOpen: false,
-  modalType: null, // 'post' or 'auth'
+  modalType: null, // 'post', 'auth' or 'comment
   openModal: (type) => set({ isOpen: true, modalType: type }),
   closeModal: () => set({ isOpen: false, modalType: null }),
   toggleModal: () =>
