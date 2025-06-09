@@ -19,6 +19,7 @@ import {
   getFirestore,
   serverTimestamp,
 } from "firebase/firestore";
+import useModalStore from "../stores/modalStore";
 
 export default function Input() {
   const { data: session } = useSession();
@@ -30,6 +31,7 @@ export default function Input() {
   const [postLoading, setPostLoading] = useState(false);
   const [text, setText] = useState("");
   const db = getFirestore(app);
+  const clostModal = useModalStore((state) => state.closeModal);
 
   const handleImagePick = (e) => {
     const file = e.target.files[0];
@@ -81,20 +83,27 @@ export default function Input() {
   };
 
   const handlePostSubmit = async () => {
-    setPostLoading(true);
-    const docRef = await addDoc(collection(db, "posts"), {
-      uid: session.user.uid,
-      name: session.user.name,
-      username: session.user.username,
-      profileImg: session.user.image,
-      text: text.trim(),
-      image: imageFileUrl || null,
-      timestamp: serverTimestamp(),
-    });
-    setPostLoading(false);
-    setText("");
-    setImageFileUrl(null);
-    setSelectedImageFile(null);
+    try {
+      setPostLoading(true);
+      const docRef = await addDoc(collection(db, "posts"), {
+        uid: session.user.uid,
+        name: session.user.name,
+        username: session.user.username,
+        profileImg: session.user.image,
+        text: text.trim(),
+        image: imageFileUrl || null,
+        timestamp: serverTimestamp(),
+      });
+      setText("");
+      setImageFileUrl(null);
+      setSelectedImageFile(null);
+
+      clostModal(); // Close the modal after posting}
+    } catch (error) {
+      console.error("Error posting: ", error);
+    } finally {
+      setPostLoading(false);
+    }
   };
 
   if (!session) return null;
@@ -122,8 +131,9 @@ export default function Input() {
           <img
             src={imageFileUrl}
             alt="Selected"
-            className={`mt-2 max-h-60 cursor-pointer object-cover ${imageFileUploading ? "animate-pulse" : ""
-              }`}
+            className={`mt-2 max-h-60 cursor-pointer object-cover ${
+              imageFileUploading ? "animate-pulse" : ""
+            }`}
           />
         )}
         <div className="flex items-center justify-between pt-1.5">
