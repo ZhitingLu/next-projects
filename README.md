@@ -8,7 +8,8 @@ A collection of fully functional, production-ready projects built with **Next.js
 - **[🌐 Google Clone](https://google-next-blue-eta.vercel.app/)**
 - **[📷 Instagram Clone](https://next-projects-dusky.vercel.app/)** (Signin with your Google account and upload a post.)
 - **[✖️ X Clone](https://next-projects-orcin.vercel.app/)** (In progress)
-- These projects demonstrate:
+
+## These projects demonstrate:
 
 - Static Site Generation (SSG)
 - Server-Side Rendering (SSR)
