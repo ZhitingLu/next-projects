@@ -1,10 +1,15 @@
-import { create } from 'zustand';
+import { create } from "zustand";
 
 const useModalStore = create((set) => ({
   isOpen: false,
-  openModal: () => set({ isOpen: true }),
-  closeModal: () => set({ isOpen: false }),
-  toggleModal: () => set((state) => ({ isOpen: !state.isOpen })),
+  modalType: null, // 'post' or 'auth'
+  openModal: (type) => set({ isOpen: true, modalType: type }),
+  closeModal: () => set({ isOpen: false, modalType: null }),
+  toggleModal: () =>
+    set((state) => ({
+      isOpen: !state.isOpen,
+      modalType: state.isOpen ? null : state.modalType,
+    })),
 }));
 
 export default useModalStore;
