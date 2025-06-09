@@ -1,22 +1,17 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import { app } from "@/firebase";
+import { collection, deleteDoc, doc, getFirestore, onSnapshot, serverTimestamp, setDoc } from "firebase/firestore";
+import { useSession } from "next-auth/react";
+import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import {
   HiHeart,
   HiOutlineChat,
   HiOutlineHeart,
   HiOutlineTrash,
 } from "react-icons/hi";
-import { signIn, useSession } from "next-auth/react";
-import { deleteDoc, onSnapshot, setDoc } from "firebase/firestore";
-import { app } from "@/firebase";
-import {
-  getFirestore,
-  doc,
-  serverTimestamp,
-  collection,
-} from "firebase/firestore";
-import toast from "react-hot-toast";
+import useModalStore from "../stores/modalStore";
 
 export default function Icons({ id, uid }) {
   const { data: session } = useSession();
@@ -25,49 +20,11 @@ export default function Icons({ id, uid }) {
   const [isLiked, setIsLiked] = useState(false);
   const [likes, setLikes] = useState([]);
   const [showBackdrop, setShowBackdrop] = useState(false);
+  const { openModal } = useModalStore();
 
   const likePost = async () => {
     if (!session?.user) {
-      setShowBackdrop(true);
-      toast(
-        (t) => (
-          <div className="flex flex-col gap-2 bg-white p-4 rounded max-w-md z-50">
-            <h2 className="font-bold text-lg text-slat-900">
-              Please sign in to like this post
-            </h2>
-
-            <div className="flex flex-col items-center gap-2 mt-2">
-              <button
-                onClick={() => {
-                  toast.dismiss(t.id);
-                  signIn();
-                  setShowBackdrop(false);
-                }}
-                className="px-3 py-1 bg-[var(--twitter-blue)] text-white rounded-full
-            hover:brightness-95 transition-all duration-200 w-full h-11
-            cursor-pointer shadow-md font-semibold hidden xl:inline"
-              >
-                Ok
-              </button>
-              <button
-                onClick={() => {
-                  toast.dismiss(t.id);
-                  setShowBackdrop(false);
-                }}
-                className="px-3 py-1 border rounded-full hover:bg-gray-100 text-slate-900
-            hover:brightness-95 transition-all duration-200 w-full h-11
-            cursor-pointer shadow-md font-semibold hidden xl:inline"
-              >
-                Close
-              </button>
-            </div>
-          </div>
-        ),
-        {
-          duration: Infinity,
-          position: "top-center",
-        }
-      );
+      openModal("auth"); // Opens Zustand auth modal
       return; // Prevent further execution if not signed in
     }
     if (isLiked) {
@@ -106,8 +63,8 @@ export default function Icons({ id, uid }) {
             <button
               onClick={async () => {
                 if (session?.user?.uid !== uid) {
-                    toast.error("You can only delete your own posts");
-                    return;
+                  toast.error("You can only delete your own posts");
+                  return;
                 }
                 try {
                   await deleteDoc(doc(db, "posts", postId));
@@ -154,6 +111,7 @@ export default function Icons({ id, uid }) {
           className="h-8 w-8 cursor-pointer rounded-full transition 
         duration-500 ease-in-out p-2 hover:text-sky-600 hover:bg-sky-100"
         />
+
         <div className="flex items-center ">
           {isLiked ? (
             <HiHeart
