@@ -8,9 +8,10 @@ import useModalStore from "../stores/modalStore";
 export default function PostInputModal() {
   const isOpen = useModalStore((state) => state.isOpen);
   const closeModal = useModalStore((state) => state.closeModal);
+  const modalType = useModalStore((state) => state.modalType);
 
-  // If modal is not open, return null to avoid rendering
-  if (!isOpen) return null;
+  // If modal is not open or it's not 'post', return null to avoid rendering
+  if (!isOpen || modalType !== "post") return null;
 
   return createPortal(
     <div className="fixed inset-0 z-50 bg-black/50 flex justify-center items-start pt-20 px-4">
