@@ -3,7 +3,7 @@ import { HiDotsHorizontal } from "react-icons/hi";
 import Link from "next/link";
 import Icons from "./Icons";
 
-export default function Post({ post, id }) {
+export default function Post({ post, id, hideIcons = false }) {
   return (
     <div className="w-full flex p-3 border-b border-gray-200 hover:bg-gray-50">
       <img
@@ -22,15 +22,20 @@ export default function Post({ post, id }) {
         </div>
 
         <Link href={`/posts/${id}`}>
-          <p className="text-slate-800 text-sm my-3 whitespace-normal break-words">{post?.text} </p>
+          <p className="text-slate-800 text-sm my-3 whitespace-normal break-words">
+            {post?.text}{" "}
+          </p>
         </Link>
 
         <Link href={`/posts/${id}`}>
-          <img src={post?.image} alt="" className="rounded-2xl mr-2 max-w-full h-auto" />
+          <img
+            src={post?.image}
+            alt=""
+            className="rounded-2xl mr-2 max-w-full h-auto"
+          />
         </Link>
-        <Icons id={id} uid={post.uid} />
+        {!hideIcons && <Icons id={id} uid={post.uid} />}
       </div>
-
     </div>
   );
 }
