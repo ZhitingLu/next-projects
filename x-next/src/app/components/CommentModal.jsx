@@ -1,11 +1,16 @@
 "use client";
 
+import { useRef } from "react";
 import useModalStore from "../stores/modalStore";
+import useOutsideClick from "@/lib/hooks/useOutsideClick";
 
 export default function CommentModal() {
   const isOpen = useModalStore((state) => state.isOpen);
   const closeModal = useModalStore((state) => state.closeModal);
   const modalType = useModalStore((state) => state.modalType);
+  const modalRef = useRef();
+
+  useOutsideClick(modalRef, closeModal);
 
   // If modal is not open or it's not 'post', return null to avoid rendering
   if (!isOpen || modalType !== "comment") return null;
@@ -13,7 +18,10 @@ export default function CommentModal() {
   return (
     <>
       <div className="fixed inset-0 bg-gray-800/30 z-40" />
-      <div className="fixed inset-0 flex items-center justify-center z-50">
+      <div
+        ref={modalRef}
+        className="fixed inset-0 flex items-center justify-center z-50"
+      >
         <div className="bg-white p-6 rounded-lg max-w-md w-full relative">
           <button
             onClick={closeModal}

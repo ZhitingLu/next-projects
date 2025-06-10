@@ -1,14 +1,18 @@
-'use client';
+"use client";
 
-import React from "react";
+import React, { useRef } from "react";
 import { createPortal } from "react-dom";
 import useModalStore from "../stores/modalStore";
 import { signIn } from "next-auth/react";
+import useOutsideClick from "@/lib/hooks/useOutsideClick";
 
 export default function AuthModal() {
   const isOpen = useModalStore((state) => state.isOpen);
   const closeModal = useModalStore((state) => state.closeModal);
   const modalType = useModalStore((state) => state.modalType);
+  const modalRef = useRef();
+
+  useOutsideClick(modalRef, closeModal);
 
   // If modal is not open or it's not 'auth', return null to avoid rendering
   if (!isOpen || modalType !== "auth") return null;
@@ -16,6 +20,7 @@ export default function AuthModal() {
   return createPortal(
     <div className="fixed inset-0 z-50 bg-gray-800/30 ">
       <div
+      ref={modalRef}
         className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 
       bg-white rounded-xl shadow-xl max-w-md w-full p-6"
       >
