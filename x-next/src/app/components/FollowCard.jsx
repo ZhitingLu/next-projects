@@ -1,8 +1,27 @@
+"use client";
+
 import React from "react";
 import Image from "next/image";
 import { MdVerified } from "react-icons/md";
+import { useSession } from "next-auth/react";
+import useModalStore from "../stores/modalStore";
+import { toast } from "react-hot-toast";
 
 export default function FollowCard({ name, username, avatar, verified }) {
+  const { data: session } = useSession();
+  const openModal = useModalStore();
+
+  const handleFollowModal = () => {
+    if (!session?.user) {
+      openModal("auth"); // opens Zustand auth modal
+    } else {
+      toast("Feature not complete yet", {
+        icon: "👋🏼",
+        position: "top-right",
+      });
+    }
+  };
+
   return (
     <div className="flex items-center justify-between cursor-pointer hover:bg-gray-100 px-3 py-2 rounded">
       <div className="flex items-center justify-between">
@@ -27,6 +46,7 @@ export default function FollowCard({ name, username, avatar, verified }) {
       </div>
 
       <button
+        onClick={handleFollowModal}
         className="bg-slate-900 text-white text-xs font-semibold rounded-full 
 hover:brightness-95 transition-all duration-200 w-18 h-8
  cursor-pointer shadow-md hidden xl:inline "
