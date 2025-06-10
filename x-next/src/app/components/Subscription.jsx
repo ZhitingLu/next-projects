@@ -15,6 +15,7 @@ export default function Subscription() {
     } else {
       toast("Coming soon!", {
         icon: "🥁",
+        position: "top-right",
       });
     }
   };
