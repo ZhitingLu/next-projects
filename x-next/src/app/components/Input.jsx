@@ -21,7 +21,12 @@ import {
 } from "firebase/firestore";
 import useModalStore from "../stores/modalStore";
 
-export default function Input() {
+export default function Input({
+  placeholder = "What's happening?",
+  buttonText = "Post",
+  replyTo= null, // Optional prop for replying to a post
+  onSubmit = null, // Optional prop for custom submit handler
+}) {
   const { data: session } = useSession();
   const imagePickRef = useRef(null);
   const textareaRef = useRef(null);
@@ -85,22 +90,28 @@ export default function Input() {
   const handlePostSubmit = async () => {
     try {
       setPostLoading(true);
-      const docRef = await addDoc(collection(db, "posts"), {
-        uid: session.user.uid,
-        name: session.user.name,
-        username: session.user.username,
-        profileImg: session.user.image,
-        text: text.trim(),
-        image: imageFileUrl || null,
-        timestamp: serverTimestamp(),
-      });
+      if (onSubmit) {
+        await onSubmit(text, imageFileUrl, replyTo);
+      } else {
+        // Default behavior: create new post
+        await addDoc(collection(db, "posts"), {
+          uid: session.user.uid,
+          name: session.user.name,
+          username: session.user.username,
+          profileImg: session.user.image,
+          text: text.trim(),
+          image: imageFileUrl || null,
+          timestamp: serverTimestamp(),
+          replyTo: replyTo || null, // Optional: add reply target
+        });
+      }
+
       setText("");
       setImageFileUrl(null);
       setSelectedImageFile(null);
-
-      clostModal(); // Close the modal after posting}
+      clostModal(); // Close the modal
     } catch (error) {
-      console.error("Error posting: ", error);
+      console.error("Error submitting:", error);
     } finally {
       setPostLoading(false);
     }
@@ -118,7 +129,7 @@ export default function Input() {
       <div className="w-full divide-y divide-gray-100 ">
         <textarea
           ref={textareaRef}
-          placeholder="What's happening?"
+          placeholder={placeholder}
           onInput={handleTextareaResize}
           row={2}
           value={text}
@@ -160,7 +171,7 @@ export default function Input() {
             className="bg-slate-900 text-white px-4 py-1.5 rounded-full font-bold shadow-md not-disabled:cursor-pointer hover:brightness-95 disabled:opacity-50"
             onClick={handlePostSubmit}
           >
-            Post
+            {buttonText}
           </button>
         </div>
       </div>
