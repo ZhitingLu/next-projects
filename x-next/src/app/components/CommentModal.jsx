@@ -1,8 +1,8 @@
 "use client";
 
+import useOutsideClick from "@/lib/hooks/useOutsideClick";
 import { useRef } from "react";
 import useModalStore from "../stores/modalStore";
-import useOutsideClick from "@/lib/hooks/useOutsideClick";
 
 export default function CommentModal() {
   const isOpen = useModalStore((state) => state.isOpen);
@@ -17,9 +17,11 @@ export default function CommentModal() {
 
   return (
     <>
-      <div className="fixed inset-0 bg-gray-800/30 z-40" />
       <div
-        ref={modalRef}
+      ref={modalRef}
+       className="fixed inset-0 bg-gray-800/30 z-40" />
+      <div
+        
         className="fixed inset-0 flex items-center justify-center z-50"
       >
         <div className="bg-white p-6 rounded-lg max-w-md w-full relative">
