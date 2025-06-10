@@ -126,7 +126,7 @@ export default function Input({
         alt=""
         className="w-11 h-11 rounded-full cursor-pointer hover:brightness-95 transition-all duration-200 "
       />
-      <div className="w-full divide-y divide-gray-100 ">
+      <div className="w-full ">
         <textarea
           ref={textareaRef}
           placeholder={placeholder}
@@ -134,7 +134,7 @@ export default function Input({
           row={2}
           value={text}
           onChange={(e) => setText(e.target.value)}
-          className="w-full border-b border-gray-100 outline-none tracking-wide min-h-[50px]
+          className="w-full outline-none tracking-wide min-h-[50px]
            text-gray-900  text-xl placeholder:text-gray-600 placeholder:text-xl 
            resize-none overflow-hidden pt-2 pb-2"
         ></textarea>
