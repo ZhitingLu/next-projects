@@ -28,7 +28,7 @@ export default function AuthModal() {
           Please sign in to continue
         </h2>
 
-        <div className="flex flex-col sm:flex-row justify-center gap-3">
+        <div className="flex flex-col sm:flex-row justify-center gap-3 items-center">
           <button
             className="bg-black text-white rounded-full px-6 py-2 font-semibold hover:brightness-95 transition duration-200 w-[200px] max-w-full cursor-pointer"
             onClick={() => {
