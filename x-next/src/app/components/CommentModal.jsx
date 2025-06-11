@@ -48,7 +48,7 @@ export default function CommentModal() {
       <div className="fixed inset-0 z-50 bg-gray-900/30 flex justify-center items-start pt-20 px-4">
         <div
           ref={modalRef}
-          className="bg-white rounded-xl shadow-lg max-w-xl w-full p-4 border-gray-100 relative"
+          className="flex bg-white rounded-xl shadow-lg max-w-xl w-full px-4 pt-4 pb-2 border-gray-100 relative"
         >
           <div className="">
             <button
@@ -59,17 +59,28 @@ export default function CommentModal() {
             </button>
             <span className="absolute top-3 right-4 text-blue-400 text-1xl font-bold cursor-pointer rounded-full hover:bg-blue-100 px-3 py-1">Drafts</span>
           </div>
-          <div className="mt-10 flex flex-col">
+          <div className="mt-10 flex flex-col w-full">
             <div className="relative">
-              {post && <Post post={post} id={postId} hideIcons noBorder />}
+              {post && <Post post={post} id={postId} hideIcons commentStyle noLink hideImg />}
+
 
               {/* Vertical line positioned absolutely relative to post */}
-              <div className="absolute bg-gray-300 left-[2.1rem] w-[2px]" style={{ top: "4rem", bottom: 0 }} />
+              <div className="absolute bg-gray-300 left-[2.1rem] w-0.5" style={{ top: "4rem", bottom: 0 }} />
+              <div className="flex pl-16 mt-3">
+                {post?.image && (
+                  <img
+                    src={post.image}
+                    alt="Post preview"
+                    className="h-14 w-14 rounded-lg object-cover border border-gray-300"
+                  />
+                )}
+              </div>
             </div>
             <Input
               placeholder="Post your reply"
               buttonText="Reply"
               replyTo={postId} // Pass postId to Input component
+              commentStyle
             />
           </div>
 
