@@ -2,7 +2,7 @@ import React from "react";
 import { HiDotsHorizontal } from "react-icons/hi";
 import Link from "next/link";
 import Icons from "./Icons";
-import { formatFirestoreTimestamp } from "@/lib/hooks/formatTimestamp";
+import { formatTimestamp } from "@/lib/hooks/formatTimestamp"
 
 export default function Post({
   post,
@@ -12,9 +12,8 @@ export default function Post({
   noLink = false,
   hideImg = false
 }) {
-  const formattedTimestamp = formatFirestoreTimestamp(post?.timestamp);
+  const displayTime = formatTimestamp(post?.timestamp);
 
-  console.log(formattedTimestamp);
   return (
     <div className={`w-full flex p-3 ${commentStyle ? '' : 'border-b border-gray-200 hover:bg-gray-50'}`}>
       <img
@@ -28,11 +27,11 @@ export default function Post({
           <div className="flex items-center space-x-1 whitespace-nowrap">
             <h4 className="font-bold text-md truncate">{post?.name} </h4>
             <span className="text-sm truncate text-gray-600">@{post?.username}</span>
-            {commentStyle && formattedTimestamp && (
-              <span className="text-sm text-gray-600 w-2">·{formattedTimestamp}</span>
+            {commentStyle && displayTime && (
+              <span className="text-sm text-gray-600 w-2">·{displayTime}</span>
             )}
           </div>
-          { !commentStyle && (<HiDotsHorizontal className="text-sm" />)}
+          {!commentStyle && (<HiDotsHorizontal className="text-sm" />)}
         </div>
 
         {noLink ? (
