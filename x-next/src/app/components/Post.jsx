@@ -2,6 +2,7 @@ import React from "react";
 import { HiDotsHorizontal } from "react-icons/hi";
 import Link from "next/link";
 import Icons from "./Icons";
+import { formatFirestoreTimestamp } from "@/lib/hooks/formatTimestamp";
 
 export default function Post({
   post,
@@ -11,16 +12,7 @@ export default function Post({
   noLink = false,
   hideImg = false
 }) {
-  const timestamp =
-    post?.timestamp?.seconds != null
-      ? new Date(post.timestamp.seconds * 1000)
-      : null;
-
-  const formattedTimestamp = timestamp?.toLocaleDateString("en-US", {
-    month: "long",
-    day: "numeric",
-  });
-
+  const formattedTimestamp = formatFirestoreTimestamp(post?.timestamp);
 
   console.log(formattedTimestamp);
   return (
