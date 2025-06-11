@@ -11,6 +11,18 @@ export default function Post({
   noLink = false,
   hideImg = false
 }) {
+  const timestamp =
+    post?.timestamp?.seconds != null
+      ? new Date(post.timestamp.seconds * 1000)
+      : null;
+
+  const formattedTimestamp = timestamp?.toLocaleDateString("en-US", {
+    month: "long",
+    day: "numeric",
+  });
+
+
+  console.log(formattedTimestamp);
   return (
     <div className={`w-full flex p-3 ${commentStyle ? '' : 'border-b border-gray-200 hover:bg-gray-50'}`}>
       <img
@@ -23,7 +35,10 @@ export default function Post({
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-1 whitespace-nowrap">
             <h4 className="font-bold text-md truncate">{post?.name} </h4>
-            <span className="text-xs truncate">@{post?.username}</span>
+            <span className="text-sm truncate text-gray-600">@{post?.username}</span>
+            {commentStyle && formattedTimestamp && (
+              <span className="text-sm text-gray-600 w-2">·{formattedTimestamp}</span>
+            )}
           </div>
           <HiDotsHorizontal className="text-sm" />
         </div>
