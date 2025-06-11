@@ -24,7 +24,8 @@ import useModalStore from "../stores/modalStore";
 export default function Input({
   placeholder = "What's happening?",
   buttonText = "Post",
-  replyTo= null, // Optional prop for replying to a post
+  commentStyle = false,
+  replyTo = null, // Optional prop for replying to a post
   onSubmit = null, // Optional prop for custom submit handler
 }) {
   const { data: session } = useSession();
@@ -36,7 +37,7 @@ export default function Input({
   const [postLoading, setPostLoading] = useState(false);
   const [text, setText] = useState("");
   const db = getFirestore(app);
-  const clostModal = useModalStore((state) => state.closeModal);
+  const closeModal = useModalStore((state) => state.closeModal);
 
   const handleImagePick = (e) => {
     const file = e.target.files[0];
@@ -109,7 +110,7 @@ export default function Input({
       setText("");
       setImageFileUrl(null);
       setSelectedImageFile(null);
-      clostModal(); // Close the modal
+      closeModal(); // Close the modal
     } catch (error) {
       console.error("Error submitting:", error);
     } finally {
@@ -120,7 +121,7 @@ export default function Input({
   if (!session) return null;
 
   return (
-    <div className="flex border-b border-gray-100 p-3 space-x-3 w-full">
+    <div className={`flex ${commentStyle ? 'pt-3 px-3 pb-0' : 'border-b border-gray-100 p-3'} space-x-3 w-full`}>
       <img
         src={session.user.image}
         alt=""
@@ -134,7 +135,7 @@ export default function Input({
           row={2}
           value={text}
           onChange={(e) => setText(e.target.value)}
-          className="w-full outline-none tracking-wide min-h-[50px]
+          className="w-full outline-none tracking-wide min-h-[60px]
            text-gray-900  text-xl placeholder:text-gray-600 placeholder:text-xl 
            resize-none overflow-hidden pt-2 pb-2"
         ></textarea>
@@ -142,12 +143,11 @@ export default function Input({
           <img
             src={imageFileUrl}
             alt="Selected"
-            className={`mt-2 max-h-60 cursor-pointer object-cover ${
-              imageFileUploading ? "animate-pulse" : ""
-            }`}
+            className={`mt-2 max-h-60 cursor-pointer object-cover ${imageFileUploading ? "animate-pulse" : ""
+              }`}
           />
         )}
-        <div className="flex items-center justify-between pt-1.5">
+        <div className="flex items-center justify-between pt-1.5 w-full">
           <div className="flex">
             <HiOutlinePhotograph
               className="h-9 w-9 p-2 text-sky-500 hover:bg-sky-100 rounded-full 
