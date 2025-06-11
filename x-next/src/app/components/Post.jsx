@@ -3,9 +3,9 @@ import { HiDotsHorizontal } from "react-icons/hi";
 import Link from "next/link";
 import Icons from "./Icons";
 
-export default function Post({ post, id, hideIcons = false }) {
+export default function Post({ post, id, hideIcons = false, noBorder = false }) {
   return (
-    <div className="w-full flex p-3 border-b border-gray-200 hover:bg-gray-50">
+    <div className={`w-full flex p-3 ${noBorder ? '' : 'border-b border-gray-200'} hover:bg-gray-50`}>
       <img
         src={post?.profileImg}
         alt=""
