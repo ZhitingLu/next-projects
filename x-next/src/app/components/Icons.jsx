@@ -115,11 +115,22 @@ export default function Icons({ id, uid }) {
     <>
       {showBackdrop && <div className="fixed inset-0 bg-black/50 z-50" />}
       <div className="flex justify-start gap-5 text-gray-500 mt-2">
-        <HiOutlineChat
-        onClick={handleCommentModal}
-          className="h-8 w-8 cursor-pointer rounded-full transition 
+        <div className="flex items-center">
+          <HiOutlineChat
+            onClick={handleCommentModal}
+            className="h-8 w-8 cursor-pointer rounded-full transition 
         duration-500 ease-in-out p-2 hover:text-sky-600 hover:bg-sky-100"
-        />
+          />
+          {likes.length > 0 && (
+            <span
+              className={`text-xs text-gray-600 ${isLiked && "text-red-600"}`}
+            >
+              {likes.length > 999
+                ? `${(likes.length / 1000).toFixed(1)}k`
+                : likes.length}
+            </span>
+          )}
+        </div>
 
         <div className="flex items-center ">
           {isLiked ? (
