@@ -5,21 +5,46 @@ import { useEffect, useRef, useState } from "react";
 import useModalStore from "../stores/modalStore";
 import Input from "./Input";
 import Post from "./Post";
-import { doc, getDoc, getFirestore } from "firebase/firestore";
+import { addDoc, collection, doc, getDoc, getFirestore, serverTimestamp } from "firebase/firestore";
 import { app } from "@/firebase";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 export default function CommentModal() {
+  const router = useRouter();
+  const { data: session } = useSession();
   const isOpen = useModalStore((state) => state.isOpen);
   const closeModal = useModalStore((state) => state.closeModal);
   const modalType = useModalStore((state) => state.modalType);
   const modalData = useModalStore((state) => state.modalData);
   const postId = modalData?.postId; // Extract postId from modalData
-
   const [post, setPost] = useState(null); // State to hold the post data
   const modalRef = useRef();
   const db = getFirestore(app);
 
   useOutsideClick(modalRef, closeModal);
+
+  const handleCommentSubmit = async (text, imageUrl, replyToId) => {
+    const postRef = doc(db, 'posts', postId);
+    const commentsRef = collection(postRef, 'comments');
+    try {
+      await addDoc(commentsRef, {
+        uid: session.user.uid,
+        name: session.user.name,
+        username: session.user.username,
+        userImg: session.user.image,
+        comment: text,
+        image: imageUrl || null,
+        timestamp: serverTimestamp(),
+        replyTo: replyToId || null,
+      });
+      closeModal();
+      router.push(`/posts/${postId}`); //
+
+    } catch (error) {
+      console.log('Failed to submit comment: ', error)
+    }
+  }
 
   useEffect(() => {
     if (postId) {
@@ -81,6 +106,7 @@ export default function CommentModal() {
               buttonText="Reply"
               replyTo={postId} // Pass postId to Input component
               commentStyle
+              onSubmit={handleCommentSubmit}
             />
           </div>
 
