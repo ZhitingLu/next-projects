@@ -48,26 +48,31 @@ export default function CommentModal() {
       <div className="fixed inset-0 z-50 bg-gray-900/30 flex justify-center items-start pt-20 px-4">
         <div
           ref={modalRef}
-          className="bg-white rounded-xl shadow-lg max-w-xl w-full p-4 relative"
+          className="bg-white rounded-xl shadow-lg max-w-xl w-full p-4 border-gray-100 relative"
         >
           <div className="">
-          <button
-            onClick={closeModal}
-            className="absolute top-3 left-4 text-gray-800 hover:text-gray-800 text-2xl cursor-pointer rounded-full hover:bg-gray-200 w-10 h-10 "
-          >
-            ×
-          </button>
-          <span className="absolute top-3 right-4 text-blue-400 text-1xl font-bold cursor-pointer rounded-full hover:bg-blue-100 px-3 py-1">Draft</span>
+            <button
+              onClick={closeModal}
+              className="absolute top-3 left-4 text-gray-800 hover:text-gray-800 text-2xl cursor-pointer rounded-full hover:bg-gray-200 w-10 h-10 "
+            >
+              ×
+            </button>
+            <span className="absolute top-3 right-4 text-blue-400 text-1xl font-bold cursor-pointer rounded-full hover:bg-blue-100 px-3 py-1">Drafts</span>
           </div>
-          <div className="mt-10">
-          {post && <Post post={post} id={postId} hideIcons />}
-          <Input
-            placeholder="Post your reply"
-            buttonText="Reply"
-            replyTo={postId} // Pass postId to Input component
-          />
+          <div className="mt-10 flex flex-col">
+            <div className="relative">
+              {post && <Post post={post} id={postId} hideIcons noBorder />}
+
+              {/* Vertical line positioned absolutely relative to post */}
+              <div className="absolute bg-gray-300 left-[2.1rem] w-[2px]" style={{ top: "4rem", bottom: 0 }} />
+            </div>
+            <Input
+              placeholder="Post your reply"
+              buttonText="Reply"
+              replyTo={postId} // Pass postId to Input component
+            />
           </div>
-          
+
         </div>
       </div>
     </>
