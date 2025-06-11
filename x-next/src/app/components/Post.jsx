@@ -32,7 +32,7 @@ export default function Post({
               <span className="text-sm text-gray-600 w-2">·{formattedTimestamp}</span>
             )}
           </div>
-          <HiDotsHorizontal className="text-sm" />
+          { !commentStyle && (<HiDotsHorizontal className="text-sm" />)}
         </div>
 
         {noLink ? (
