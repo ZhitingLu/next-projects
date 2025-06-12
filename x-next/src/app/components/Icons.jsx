@@ -15,10 +15,10 @@ import useModalStore from "../stores/modalStore";
 
 export default function Icons({ id, uid }) {
   const { data: session } = useSession();
-  console.log(session);
   const db = getFirestore(app);
   const [isLiked, setIsLiked] = useState(false);
   const [likes, setLikes] = useState([]);
+  const [comments, setComments] = useState([]);
   const [showBackdrop, setShowBackdrop] = useState(false);
   const { openModal } = useModalStore();
 
@@ -111,6 +111,13 @@ export default function Icons({ id, uid }) {
     );
   };
 
+  useEffect(() => {
+    const unsubscribe = onSnapshot(collection(db, 'posts', id, 'comments'),
+      (snapshot) => setComments(snapshot.docs)
+    );
+    return () => unsubscribe();
+  }, [db, id])
+
   return (
     <>
       {showBackdrop && <div className="fixed inset-0 bg-black/50 z-50" />}
@@ -121,13 +128,13 @@ export default function Icons({ id, uid }) {
             className="h-8 w-8 cursor-pointer rounded-full transition 
         duration-500 ease-in-out p-2 hover:text-sky-600 hover:bg-sky-100"
           />
-          {likes.length > 0 && (
+          {comments.length > 0 && (
             <span
-              className={`text-xs text-gray-600 ${isLiked && "text-red-600"}`}
+              className={`text-xs text-gray-600`}
             >
-              {likes.length > 999
-                ? `${(likes.length / 1000).toFixed(1)}k`
-                : likes.length}
+              {comments.length > 999
+                ? `${(comments.length / 1000).toFixed(1)}k`
+                : comments.length}
             </span>
           )}
         </div>
