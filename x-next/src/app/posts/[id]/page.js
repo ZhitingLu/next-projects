@@ -7,6 +7,7 @@ import { doc, getDoc, getFirestore } from "firebase/firestore";
 import Link from "next/link";
 import { HiArrowLeft } from "react-icons/hi";
 import Post from "@/app/components/Post";
+import Comments from "@/app/components/Comments";
 
 export default async function PostPage({ params }) {
   const db = getFirestore(app);
@@ -36,6 +37,7 @@ export default async function PostPage({ params }) {
         noLink={false}
         hideImg={false}
       />
+      <Comments id={params.id} />
     </div>
   );
 }
