@@ -21,10 +21,10 @@ export default function Subscription() {
   };
 
   return (
-    <div className="border border-gray-200 rounded-xl p-3">
+    <div className="border border-gray-200 dark:border-gray-700 rounded-xl p-3">
       <div className="flex flex-col gap-2">
         <h2 className="text-xl font-bold">Subscribe to Premium</h2>
-        <p className="text-gray-800 text-sm">
+        <p className="text-gray-800 dark:text-gray-300 text-sm">
           Subscribe to unlock new features and if eligible, receive a share of
           revenue.
         </p>

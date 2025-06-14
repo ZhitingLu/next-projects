@@ -23,7 +23,7 @@ export default function FollowCard({ name, username, avatar, verified }) {
   };
 
   return (
-    <div className="flex items-center justify-between cursor-pointer hover:bg-gray-100 px-3 py-2 rounded">
+    <div className="flex items-center justify-between cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 px-3 py-2">
       <div className="flex items-center justify-between">
         <Image
           src={avatar}
@@ -41,13 +41,13 @@ export default function FollowCard({ name, username, avatar, verified }) {
               )}
             </span>
           </h3>
-          <p className="text-xs text-gray-500">@{username}</p>
+          <p className="text-xs text-gray-500 dark:text-gray-300">@{username}</p>
         </div>
       </div>
 
       <button
         onClick={handleFollowModal}
-        className="bg-slate-900 text-white text-xs font-semibold rounded-full 
+        className="bg-slate-900 text-white dark:bg-gray-200 dark:text-black text-xs font-semibold rounded-xl
 hover:brightness-95 transition-all duration-200 w-18 h-8
  cursor-pointer shadow-md hidden xl:inline "
       >

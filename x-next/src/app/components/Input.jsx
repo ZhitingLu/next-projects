@@ -121,7 +121,7 @@ export default function Input({
   if (!session) return null;
 
   return (
-    <div className={`flex ${commentStyle ? 'pt-3 px-3 pb-0' : 'border-b border-gray-100 p-3'} space-x-3 w-full`}>
+    <div className={`flex ${commentStyle ? 'pt-3 px-3 pb-0' : 'border-b border-gray-100 dark:border-gray-700 p-3'} space-x-3 w-full`}>
       <img
         src={session.user.image}
         alt=""
@@ -136,7 +136,7 @@ export default function Input({
           value={text}
           onChange={(e) => setText(e.target.value)}
           className="w-full outline-none tracking-wide min-h-[60px]
-           text-gray-900  text-xl placeholder:text-gray-600 placeholder:text-xl 
+           text-gray-900 dark:text-gray-300 text-xl placeholder:text-gray-600 dark:placeholder:text-gray-400 placeholder:text-xl 
            resize-none overflow-hidden pt-2 pb-2"
         ></textarea>
         {selectedImageFile && (
@@ -168,7 +168,7 @@ export default function Input({
           </div>
           <button
             disabled={text.trim() === "" || imageFileUploading || postLoading}
-            className="bg-slate-900 text-white px-4 py-1.5 rounded-full font-bold shadow-md not-disabled:cursor-pointer hover:brightness-95 disabled:opacity-50"
+            className="bg-slate-900 dark:bg-gray-700 text-white px-4 py-1.5 rounded-full font-bold shadow-md not-disabled:cursor-pointer hover:brightness-95 disabled:opacity-50"
             onClick={handlePostSubmit}
           >
             {buttonText}
