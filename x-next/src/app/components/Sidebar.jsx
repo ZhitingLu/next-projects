@@ -178,9 +178,7 @@ export default function Sidebar() {
             <span className="text-xl hidden xl:inline">More</span>
           </Link>
 
-          <div className="flex items-center p-3 gap-6">
-            <DarkModeSwitch />
-          </div>
+          <DarkModeSwitch />
 
           <button
             onClick={handlePostModal}
