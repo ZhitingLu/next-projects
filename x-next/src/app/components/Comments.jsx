@@ -33,7 +33,7 @@ export default function Comments({ id }) {
     <div>
       {comments.length > 0 ? (
         comments.map((comment) => (
-          <Comment key={comment.id} comment={comment} id={comment.id} />
+          <Comment key={comment.id} comment={comment} commentId={comment.id} originalPostId={id} />
         ))
       ) : (
         <div className="text-center py-4">No comments yet</div>
