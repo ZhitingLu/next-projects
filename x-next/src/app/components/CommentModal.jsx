@@ -70,19 +70,19 @@ export default function CommentModal() {
 
   return (
     <>
-      <div className="fixed inset-0 z-50 bg-gray-900/30 flex justify-center items-start pt-20 px-4">
+      <div className="fixed inset-0 z-50 bg-gray-900/30  dark:bg-gray-400/50 flex justify-center items-start pt-20 px-4">
         <div
           ref={modalRef}
-          className="flex bg-white rounded-xl shadow-lg max-w-xl w-full px-4 pt-4 pb-2 border-gray-100 relative"
+          className="flex bg-white dark:bg-black rounded-xl shadow-lg max-w-xl w-full px-4 pt-4 pb-2 border-gray-100 dark:border-gray-700 relative"
         >
           <div className="">
             <button
               onClick={closeModal}
-              className="absolute top-3 left-4 text-gray-800 hover:text-gray-800 text-2xl cursor-pointer rounded-full hover:bg-gray-200 w-10 h-10 "
+              className="absolute top-3 left-4 text-gray-800 dark:text-white hover:text-gray-800  dark:hover:text-white text-2xl cursor-pointer rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 w-10 h-10 "
             >
               ×
             </button>
-            <span className="absolute top-3 right-4 text-blue-400 text-1xl font-bold cursor-pointer rounded-full hover:bg-blue-100 px-3 py-1">Drafts</span>
+            <span className="absolute top-3 right-4 text-blue-400 text-1xl font-bold cursor-pointer rounded-full hover:bg-blue-100 dark:hover:bg-gray-700 px-3 py-1">Drafts</span>
           </div>
           <div className="mt-10 flex flex-col w-full">
             <div className="relative">
@@ -90,7 +90,7 @@ export default function CommentModal() {
 
 
               {/* Vertical line positioned absolutely relative to post */}
-              <div className="absolute bg-gray-300 left-[2.1rem] w-0.5" style={{ top: "4rem", bottom: 0 }} />
+              <div className="absolute bg-gray-300 dark:bg-gray-400 left-[2.1rem] w-0.5" style={{ top: "4rem", bottom: 0 }} />
               <div className="flex pl-16 mt-3">
                 {post?.image && (
                   <img

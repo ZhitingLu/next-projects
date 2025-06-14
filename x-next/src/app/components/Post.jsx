@@ -19,8 +19,8 @@ export default function Post({
       className={`w-full flex p-3 ${
         commentStyle
           ? ""
-          : "border-b border-gray-200 dark:border-gray-700 dark:hover:border-gray-700"
-      } hover:bg-gray-50 dark:hover:bg-gray-700`}
+          : "border-b border-gray-200 dark:border-gray-700 dark:hover:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700"
+      } `}
     >
       <img
         src={post?.profileImg}
@@ -39,7 +39,9 @@ export default function Post({
               <span className="text-sm text-gray-600 w-2">·{displayTime}</span>
             )}
           </div>
-          {!commentStyle && <HiDotsHorizontal className="text-sm text-gray-600 dark:text-gray-400" />}
+          {!commentStyle && (
+            <HiDotsHorizontal className="text-sm text-gray-600 dark:text-gray-400" />
+          )}
         </div>
 
         {noLink ? (

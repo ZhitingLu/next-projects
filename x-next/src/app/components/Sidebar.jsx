@@ -178,9 +178,10 @@ export default function Sidebar() {
             <span className="text-xl hidden xl:inline">More</span>
           </Link>
 
-          <div className="">
+          <div className="flex items-center p-3 gap-6">
             <DarkModeSwitch />
           </div>
+
           <button
             onClick={handlePostModal}
             className="bg-slate-900 text-white rounded-full
@@ -218,7 +219,7 @@ export default function Sidebar() {
             {showLogout && (
               <div
                 ref={dropdownRef}
-                className="absolute bottom-16 left-1/2 -translate-x-1/2 border border-gray-200 dark:border-gray-700 rounded-xl shadow-lg w-72 z-50 font-bold rounded-t-md rounded-b-md"
+                className="absolute bottom-16 left-1/2 -translate-x-1/2 border bg-white dark:bg-black border-gray-200 dark:border-gray-700 rounded-xl shadow-lg w-72 z-60 font-bold rounded-t-md rounded-b-md"
               >
                 {/* Arrow */}
 

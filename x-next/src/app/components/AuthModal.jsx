@@ -18,19 +18,19 @@ export default function AuthModal() {
   if (!isOpen || modalType !== "auth") return null;
 
   return createPortal(
-    <div className="fixed inset-0 z-50 bg-gray-800/30 ">
+    <div className="fixed inset-0 z-50 bg-gray-800/30 dark:bg-gray-400/50 ">
       <div
       ref={modalRef}
         className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 
-      bg-white rounded-xl shadow-xl max-w-md w-full p-6"
+      bg-white dark:bg-black rounded-xl shadow-xl max-w-md w-full p-8"
       >
-        <h2 className="text-lg font-bold text-slate-900 mb-4 text-center">
+        <h2 className="text-lg font-bold text-slate-900 dark:text-white mb-5 text-center">
           Please sign in to continue
         </h2>
 
         <div className="flex flex-col sm:flex-row justify-center gap-3 items-center">
           <button
-            className="bg-black text-white rounded-full px-6 py-2 font-semibold hover:brightness-95 transition duration-200 w-[200px] max-w-full cursor-pointer"
+            className="bg-black dark:bg-white text-white dark:text-black rounded-full px-6 py-2 font-semibold hover:brightness-95 transition duration-200 w-[200px] max-w-full cursor-pointer"
             onClick={() => {
               closeModal();
               signIn();
@@ -39,7 +39,7 @@ export default function AuthModal() {
             Sign In
           </button>
           <button
-            className="border rounded-full px-6 py-2 font-semibold hover:bg-gray-100 transition duration-200 cursor-pointer text-slate-900 w-[200px] max-w-full"
+            className="border rounded-full px-6 py-2 font-semibold hover:bg-gray-100 dark:hover:brightness-95 dark:hover:text-black transition duration-200 cursor-pointer text-slate-900 dark:text-gray-300 w-[200px] max-w-full"
             onClick={closeModal}
           >
             Cancel
