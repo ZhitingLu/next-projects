@@ -10,6 +10,7 @@ import { Toaster } from "react-hot-toast";
 import AuthModal from "./components/AuthModal";
 import PostInputModal from "./components/PostInputModal";
 import CommentModal from "./components/CommentModal";
+import Providers from "./Providers";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -34,28 +35,29 @@ export default function RootLayout({ children }) {
         <body
           className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         >
-          <Toaster />
-          <AuthModal />
-          <PostInputModal />
-          <CommentModal />
+          <Providers>
+            <Toaster />
+            <AuthModal />
+            <PostInputModal />
+            <CommentModal />
 
-          <div className="flex justify-between max-w-7xl mx-auto min-h-screen px-4 sm:px-0 lg:px-8">
+            <div className="flex justify-between max-w-7xl mx-auto min-h-screen px-4 sm:px-0 lg:px-8">
+              <div className="hidden sm:flex w-16 xl:w-[280px] border-r border-gray-100 dark:border-gray-700 flex-col h-screen sticky top-0">
+                <Sidebar />
+              </div>
 
-            <div className="hidden sm:flex w-16 xl:w-[280px] border-r border-gray-100 flex-col h-screen sticky top-0">
-              <Sidebar />
+              <div className="flex-grow min-w-0 max-w-[600px] mx-auto border-r border-gray-100 dark:border-gray-700 w-2xl flex-1">
+                {children}
+              </div>
+
+              <div className="hidden lg:flex flex-col gap-3 w-[22rem] h-screen pl-4">
+                <SearchBar />
+                <Subscription />
+                <FollowSuggestions />
+                <News />
+              </div>
             </div>
-
-            <div className="flex-grow min-w-0 max-w-[600px] mx-auto border-r border-gray-100 w-2xl flex-1" >
-              {children}
-            </div>
-
-            <div className="hidden lg:flex flex-col gap-3 w-[22rem] h-screen pl-4">
-              <SearchBar />
-              <Subscription />
-              <FollowSuggestions />
-              <News />
-            </div>
-          </div>
+          </Providers>
         </body>
       </html>
     </SessionWrapper>
