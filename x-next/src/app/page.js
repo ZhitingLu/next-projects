@@ -14,8 +14,8 @@ export default function Home({ searchParams }) {
           href="/?tab=foryou"
           className={`w-1/2 px-4 py-3 hover:bg-gray-200 text-center pb-3 font-semibold text-sm sm:text-base transition-all duration-200 cursor-pointer ${
             tab === "foryou"
-              ? "border-b-4 border-blue-400 text-black"
-              : "text-gray-500 hover:text-black"
+              ? "border-b-4 border-blue-400 ring-blue-400 text-black"
+              : "border-b-4 border-transparent text-gray-500 hover:text-black"
           }`}
         >
           For you
@@ -25,8 +25,8 @@ export default function Home({ searchParams }) {
           href="/?tab=following"
           className={`w-1/2 px-4 py-3 hover:bg-gray-200 text-center pb-3 font-semibold text-sm sm:text-base transition-all duration-200 cursor-pointer ${
             tab === "following"
-              ? "border-b-4 border-blue-400 text-black"
-              : "text-gray-500 hover:text-black"
+              ? "border-b-4 border-blue-400 ring-blue-400 text-black"
+              : "border-b-4 border-transparent text-gray-500 hover:text-black"
           }`}
         >
           Following
