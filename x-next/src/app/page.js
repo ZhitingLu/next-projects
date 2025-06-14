@@ -7,7 +7,7 @@ export default function Home({ searchParams }) {
   return (
     <div className="min-h-screen">
       <div
-        className="sticky top-0 z-30 border-b border-gray-100 dark:border-gray-700
+        className="sticky top-0 z-30 border-b bg-white dark:bg-black border-gray-100 dark:border-gray-700
       flex justify-between items-center "
       >
         <Link
