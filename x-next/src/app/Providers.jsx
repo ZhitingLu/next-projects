@@ -9,8 +9,8 @@ import React from 'react';
 
 export default function Providers({children}) {
   return (
-    <ThemeProvider attribute="class" defaultTheme="system" enableSystem enableColorScheme>
-      <div>
+    <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+      <div className='text-gray-700 dark:text-gray-200 bg-white dark:bg-black select-none transition-colors duration-300'>
         {children}
       </div>
     </ThemeProvider>
