@@ -3,7 +3,7 @@ import Input from "./components/Input";
 import Link from "next/link";
 
 export default function Home({ searchParams }) {
-  const tab = searchParams.tab || "foryou";
+  const tab = searchParams?.tab || "foryou";
   return (
     <div className="min-h-screen">
       <div
