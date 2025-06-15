@@ -32,6 +32,7 @@ export default function Input({
   commentStyle = false,
   replyTo = null, // Optional prop for replying to a post
   onSubmit = null, // Optional prop for custom submit handler
+  successToastMsg = "Post submitted successfully!",
 }) {
   const { data: session } = useSession();
   const imagePickRef = useRef(null);
@@ -134,7 +135,7 @@ export default function Input({
       } else {
         router.push("/"); // Navigate to home if not on the feed
       }
-      toast.success("Post submitted successfully!");
+      toast.success(successToastMsg);
     } catch (error) {
       console.error("Error submitting:", error);
     } finally {
