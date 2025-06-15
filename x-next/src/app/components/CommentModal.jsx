@@ -107,6 +107,7 @@ export default function CommentModal() {
               replyTo={postId} // Pass postId to Input component
               commentStyle
               onSubmit={handleCommentSubmit}
+              successToastMsg="Comment posted successfully!"
             />
           </div>
 
