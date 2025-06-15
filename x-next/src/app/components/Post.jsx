@@ -36,7 +36,7 @@ export default function Post({
               @{post?.username}
             </span>
             {commentStyle && displayTime && (
-              <span className="text-sm text-gray-600 w-2">·{displayTime}</span>
+              <span className="text-sm text-gray-600 dark:text-gray-400 w-2">·{displayTime}</span>
             )}
           </div>
           {!commentStyle && (
