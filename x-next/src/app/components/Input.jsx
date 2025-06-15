@@ -1,17 +1,5 @@
 "use client";
 
-import { useSession } from "next-auth/react";
-import { HiOutlineEmojiHappy, HiOutlinePhotograph } from "react-icons/hi";
-import { MdOutlineGifBox } from "react-icons/md";
-import { TbCalendarClock } from "react-icons/tb";
-import { IoLocationOutline } from "react-icons/io5";
-import { useEffect, useRef, useState } from "react";
-import {
-  getStorage,
-  ref,
-  uploadBytesResumable,
-  getDownloadURL,
-} from "firebase/storage";
 import { app } from "@/firebase";
 import {
   addDoc,
@@ -19,9 +7,24 @@ import {
   getFirestore,
   serverTimestamp,
 } from "firebase/firestore";
-import useModalStore from "../stores/modalStore";
-import { useRouter, usePathname } from "next/navigation";
+import {
+  getDownloadURL,
+  getStorage,
+  ref,
+  uploadBytesResumable,
+} from "firebase/storage";
+import { useSession } from "next-auth/react";
+import { usePathname, useRouter } from "next/navigation";
+import { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
+import { HiOutlinePhotograph } from "react-icons/hi";
+import { IoLocationOutline } from "react-icons/io5";
+import { MdOutlineGifBox } from "react-icons/md";
+import { PiCat } from "react-icons/pi";
+import { TbCalendarClock } from "react-icons/tb";
+import useModalStore from "../stores/modalStore";
+import EmojiPicker from "emoji-picker-react";
+import useOutsideClick from "@/lib/hooks/useOutsideClick";
 
 export default function Input({
   placeholder = "What's happening?",
@@ -42,6 +45,8 @@ export default function Input({
   const closeModal = useModalStore((state) => state.closeModal);
   const router = useRouter();
   const pathname = usePathname();
+  const [showEmojiPicker, setShowEmojiPicker] = useState(false);
+  const emojiPickerRef = useRef(null);
 
   const handleImagePick = (e) => {
     const file = e.target.files[0];
@@ -91,6 +96,15 @@ export default function Input({
     textarea.style.height = `${textarea.scrollHeight}px`; // Set height to scrollHeight to expand
     setText(e.target.value);
   };
+
+  const onEmojiClick = (emojiData) => {
+    setText((prev) => prev + emojiData.emoji);
+    setShowEmojiPicker(false);
+    textareaRef.current?.focus();
+  };
+
+  // Close emoji picker when clicking outside
+  useOutsideClick(emojiPickerRef, () => setShowEmojiPicker(false));
 
   const handlePostSubmit = async () => {
     try {
@@ -155,6 +169,7 @@ export default function Input({
            text-gray-900 dark:text-gray-300 text-xl placeholder:text-gray-600 dark:placeholder:text-gray-400 placeholder:text-xl 
            resize-none overflow-hidden pt-2 pb-2"
         ></textarea>
+
         {selectedImageFile && (
           <img
             src={imageFileUrl}
@@ -165,7 +180,7 @@ export default function Input({
           />
         )}
         <div className="flex items-center justify-between pt-1.5 w-full">
-          <div className="flex">
+          <div className="flex relative">
             <HiOutlinePhotograph
               className="h-9 w-9 p-2 text-sky-500 hover:bg-sky-100 rounded-full 
             cursor-pointer"
@@ -179,7 +194,20 @@ export default function Input({
               onChange={handleImagePick}
             />
             <MdOutlineGifBox className="h-9 w-9 p-2 text-sky-500 hover:bg-sky-100 rounded-full cursor-pointer" />
-            <HiOutlineEmojiHappy className="h-9 w-9 p-2 text-sky-500 hover:bg-sky-100 rounded-full cursor-pointer" />
+
+            {showEmojiPicker && (
+              <div
+                ref={emojiPickerRef}
+                className="absolute bottom-14 left-0 top-full mt-1 z-50"
+              >
+                <EmojiPicker onEmojiClick={onEmojiClick} />
+              </div>
+            )}
+
+            <PiCat
+              onClick={() => setShowEmojiPicker(!showEmojiPicker)}
+              className="h-9 w-9 p-2 text-sky-500 hover:bg-sky-100 rounded-full cursor-pointer"
+            />
             <TbCalendarClock className="h-9 w-9 p-2 text-sky-500 hover:bg-sky-100 rounded-full cursor-pointer" />
             <IoLocationOutline className="h-9 w-9 p-2 text-sky-500 hover:bg-sky-100 rounded-full cursor-pointer" />
           </div>
