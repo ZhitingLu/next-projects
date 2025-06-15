@@ -20,6 +20,8 @@ import {
   serverTimestamp,
 } from "firebase/firestore";
 import useModalStore from "../stores/modalStore";
+import { useRouter, usePathname } from "next/navigation";
+import toast from "react-hot-toast";
 
 export default function Input({
   placeholder = "What's happening?",
@@ -38,6 +40,8 @@ export default function Input({
   const [text, setText] = useState("");
   const db = getFirestore(app);
   const closeModal = useModalStore((state) => state.closeModal);
+  const router = useRouter();
+  const pathname = usePathname();
 
   const handleImagePick = (e) => {
     const file = e.target.files[0];
@@ -111,6 +115,12 @@ export default function Input({
       setImageFileUrl(null);
       setSelectedImageFile(null);
       closeModal(); // Close the modal
+      if (pathname === "/") {
+        router.refresh(); // Refresh the feed if on the home page
+      } else {
+        router.push("/"); // Navigate to home if not on the feed
+      }
+      toast.success("Post submitted successfully!");
     } catch (error) {
       console.error("Error submitting:", error);
     } finally {
@@ -121,7 +131,13 @@ export default function Input({
   if (!session) return null;
 
   return (
-    <div className={`flex ${commentStyle ? 'pt-3 px-3 pb-0' : 'border-b border-gray-100 dark:border-gray-700 p-3'} space-x-3 w-full`}>
+    <div
+      className={`flex ${
+        commentStyle
+          ? "pt-3 px-3 pb-0"
+          : "border-b border-gray-100 dark:border-gray-700 p-3"
+      } space-x-3 w-full`}
+    >
       <img
         src={session.user.image}
         alt=""
@@ -143,8 +159,9 @@ export default function Input({
           <img
             src={imageFileUrl}
             alt="Selected"
-            className={`mt-2 max-h-60 cursor-pointer object-cover ${imageFileUploading ? "animate-pulse" : ""
-              }`}
+            className={`mt-2 max-h-60 cursor-pointer object-cover ${
+              imageFileUploading ? "animate-pulse" : ""
+            }`}
           />
         )}
         <div className="flex items-center justify-between pt-1.5 w-full">
