@@ -1,7 +1,15 @@
 "use client";
 
 import { app } from "@/firebase";
-import { collection, deleteDoc, doc, getFirestore, onSnapshot, serverTimestamp, setDoc } from "firebase/firestore";
+import {
+  collection,
+  deleteDoc,
+  doc,
+  getFirestore,
+  onSnapshot,
+  serverTimestamp,
+  setDoc,
+} from "firebase/firestore";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
@@ -12,6 +20,7 @@ import {
   HiOutlineTrash,
 } from "react-icons/hi";
 import useModalStore from "../stores/modalStore";
+import { useRouter, usePathname } from "next/navigation";
 
 export default function Icons({ id, uid }) {
   const { data: session } = useSession();
@@ -21,6 +30,8 @@ export default function Icons({ id, uid }) {
   const [comments, setComments] = useState([]);
   const [showBackdrop, setShowBackdrop] = useState(false);
   const { openModal } = useModalStore();
+  const router = useRouter();
+  const pathname = usePathname();
 
   const likePost = async () => {
     if (!session?.user) {
@@ -43,7 +54,7 @@ export default function Icons({ id, uid }) {
       return; // Prevent further execution if not signed in
     }
     openModal("comment", { postId: id }); // Opens Zustand comment modal with post ID
-  }
+  };
 
   useEffect(() => {
     onSnapshot(collection(db, "posts", id, "likes"), (snapshot) => {
@@ -59,15 +70,17 @@ export default function Icons({ id, uid }) {
 
   const confirmAndDeletePost = (postId) => {
     setShowBackdrop(true);
-    toast(
+    toast.custom(
       (t) => (
-        <div className="flex flex-col gap-2 bg-white p-4 rounded max-w-md z-50">
-          <h2 className="font-bold text-lg text-slat-900">Delete post?</h2>
-          <p className="text-sm text-gray-500 font-semibold">
+        <div className="flex flex-col gap-2 bg-white dark:bg-black p-8 rounded-xl max-w-md z-50">
+          <h2 className="font-bold text-lg text-slat-900 dark:text-white">
+            Delete post?
+          </h2>
+          <p className="text-sm text-gray-500 dark:text-gray-200 font-semibold">
             This can’t be undone and it will be removed from your profile, the
             timeline of any accounts that follow you, and from search results.{" "}
           </p>
-          <div className="flex flex-col items-center gap-2 mt-2">
+          <div className="flex items-center gap-2 mt-2">
             <button
               onClick={async () => {
                 if (session?.user?.uid !== uid) {
@@ -77,6 +90,12 @@ export default function Icons({ id, uid }) {
                 try {
                   await deleteDoc(doc(db, "posts", postId));
                   toast.success("Post deleted successfully");
+                  // Redirect if currently on the post detail page
+                  if (pathname === `/posts/${postId}`) {
+                    setTimeout(() => {
+                      router.push("/");
+                    }, 1000); // Delay to let toast show
+                  }
                 } catch (err) {
                   toast.error("Failed to delete post");
                 } finally {
@@ -85,7 +104,7 @@ export default function Icons({ id, uid }) {
                 }
               }}
               className="px-3 py-1 bg-red-600 text-white rounded-full
-      hover:brightness-95 transition-all duration-200 w-full h-11
+      hover:brightness-95 transition-all duration-200 w-50 h-11
       cursor-pointer shadow-md font-semibold hidden xl:inline"
             >
               Yes, delete it
@@ -93,10 +112,13 @@ export default function Icons({ id, uid }) {
             <button
               onClick={() => {
                 toast.dismiss(t.id);
-                setShowBackdrop(false);
+                setTimeout(() => {
+                  setShowBackdrop(false);
+                }, 500); // Delay to remove backdrop after toast
+                
               }}
-              className="px-3 py-1 border rounded-full hover:bg-gray-100 text-slate-900
-      hover:brightness-95 transition-all duration-200 w-full h-11
+              className="px-3 py-1 border rounded-full hover:bg-gray-100 text-slate-900 dark:bg-white
+      hover:brightness-95 transition-all duration-200 w-50 h-11
       cursor-pointer shadow-md font-semibold hidden xl:inline"
             >
               Cancel
@@ -112,15 +134,18 @@ export default function Icons({ id, uid }) {
   };
 
   useEffect(() => {
-    const unsubscribe = onSnapshot(collection(db, 'posts', id, 'comments'),
+    const unsubscribe = onSnapshot(
+      collection(db, "posts", id, "comments"),
       (snapshot) => setComments(snapshot.docs)
     );
     return () => unsubscribe();
-  }, [db, id])
+  }, [db, id]);
 
   return (
     <>
-      {showBackdrop && <div className="fixed inset-0 bg-black/50 z-50" />}
+      {showBackdrop && (
+        <div className="fixed inset-0 bg-black/50 dark:bg-gray-400/50 z-50" />
+      )}
       <div className="flex justify-start gap-5 text-gray-500 mt-2">
         <div className="flex items-center">
           <HiOutlineChat
@@ -129,9 +154,7 @@ export default function Icons({ id, uid }) {
         duration-500 ease-in-out p-2 hover:text-sky-600 hover:bg-sky-100"
           />
           {comments.length > 0 && (
-            <span
-              className={`text-xs text-gray-600`}
-            >
+            <span className={`text-xs text-gray-600 dark:text-gray-300`}>
               {comments.length > 999
                 ? `${(comments.length / 1000).toFixed(1)}k`
                 : comments.length}
@@ -155,7 +178,9 @@ export default function Icons({ id, uid }) {
           )}
           {likes.length > 0 && (
             <span
-              className={`text-xs text-gray-600 ${isLiked && "text-red-600"}`}
+              className={`text-xs text-gray-600 dark:text-gray-300 ${
+                isLiked && "text-red-600"
+              }`}
             >
               {likes.length > 999
                 ? `${(likes.length / 1000).toFixed(1)}k`
