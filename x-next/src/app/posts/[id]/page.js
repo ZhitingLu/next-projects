@@ -23,7 +23,7 @@ export default async function PostPage({ params }) {
   // For example, you can use a Post component to display the post
   return (
     <div className="max-w-xl max-auto min-h-screen">
-      <div className="flex items-center py-3 px-3 sticky top-0 z-40 bg-white border-b border-gray-200">
+      <div className="flex items-center py-3 px-3 sticky top-0 z-40 bg-white dark:bg-black border-b border-gray-200 dark:border-gray-700">
         <Link href="/" className="flex items-center gap-2 sm:text-lg">
           <HiArrowLeft className="h-5 w-5" />
           Back to Feed
