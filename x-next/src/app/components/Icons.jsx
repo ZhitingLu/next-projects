@@ -21,6 +21,7 @@ import {
 } from "react-icons/hi";
 import useModalStore from "../stores/modalStore";
 import { useRouter, usePathname } from "next/navigation";
+import { AnimatePresence, motion } from "framer-motion";
 
 export default function Icons({ id, uid }) {
   const { data: session } = useSession();
@@ -70,67 +71,62 @@ export default function Icons({ id, uid }) {
 
   const confirmAndDeletePost = (postId) => {
     setShowBackdrop(true);
-    toast.custom(
-      (t) => (
-        <div className="flex flex-col gap-2 bg-white dark:bg-black p-8 rounded-xl max-w-md z-50">
-          <h2 className="font-bold text-lg text-slat-900 dark:text-white">
-            Delete post?
-          </h2>
-          <p className="text-sm text-gray-500 dark:text-gray-200 font-semibold">
-            This can’t be undone and it will be removed from your profile, the
-            timeline of any accounts that follow you, and from search results.{" "}
-          </p>
-          <div className="flex items-center gap-2 mt-2">
-            <button
-              onClick={async () => {
-                if (session?.user?.uid !== uid) {
-                  toast.error("You can only delete your own posts");
-                  return;
-                }
-                try {
-                  await deleteDoc(doc(db, "posts", postId));
-                  toast.success("Post deleted successfully");
-                  // Redirect if currently on the post detail page
-                  if (pathname === `/posts/${postId}`) {
-                    setTimeout(() => {
-                      router.push("/");
-                    }, 1000); // Delay to let toast show
+    toast.custom((t) => (
+      <AnimatePresence>
+        {t.visible && (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.95 }}
+            transition={{ duration: 0.2 }}
+            className="flex flex-col gap-2 bg-white dark:bg-black p-4 rounded-xl max-w-md z-50"
+          >
+            <h2 className="font-bold text-lg text-slat-900 dark:text-white">
+              Delete post?
+            </h2>
+            <p className="text-sm text-gray-500 dark:text-gray-200 font-semibold">
+              This can’t be undone and it will be removed from your profile, the timeline of any accounts that follow you, and from search results.
+            </p>
+            <div className="flex items-center gap-2 mt-2">
+              <button
+                onClick={async () => {
+                  if (session?.user?.uid !== uid) {
+                    toast.error("You can only delete your own posts");
+                    return;
                   }
-                } catch (err) {
-                  toast.error("Failed to delete post");
-                } finally {
-                  toast.dismiss(t.id);
-                  setShowBackdrop(false);
-                }
-              }}
-              className="px-3 py-1 bg-red-600 text-white rounded-full
-      hover:brightness-95 transition-all duration-200 w-50 h-11
-      cursor-pointer shadow-md font-semibold hidden xl:inline"
-            >
-              Yes, delete it
-            </button>
-            <button
-              onClick={() => {
-                toast.dismiss(t.id);
-                setTimeout(() => {
-                  setShowBackdrop(false);
-                }, 500); // Delay to remove backdrop after toast
-                
-              }}
-              className="px-3 py-1 border rounded-full hover:bg-gray-100 text-slate-900 dark:bg-white
-      hover:brightness-95 transition-all duration-200 w-50 h-11
-      cursor-pointer shadow-md font-semibold hidden xl:inline"
-            >
-              Cancel
-            </button>
-          </div>
-        </div>
-      ),
-      {
-        duration: Infinity,
-        position: "top-center",
-      }
-    );
+                  try {
+                    await deleteDoc(doc(db, "posts", postId));
+                    toast.success("Post deleted successfully");
+                    setShowBackdrop(false);
+                    if (pathname === `/posts/${postId}`) {
+                      setTimeout(() => router.push("/"), 1000);
+                    }
+                  } catch (err) {
+                    toast.error("Failed to delete post");
+                    setShowBackdrop(false);
+                  } finally {
+                    toast.dismiss(t.id);
+                    setShowBackdrop(false);
+                  }
+                }}
+                className="px-3 py-1 bg-red-600 text-white rounded-full hover:brightness-95 transition-all duration-200 w-full h-11 cursor-pointer shadow-md font-semibold hidden xl:inline"
+              >
+                Yes, delete it
+              </button>
+              <button
+                onClick={() =>{ toast.dismiss(t.id); setShowBackdrop(false);}}
+                className="px-3 py-1 border rounded-full hover:bg-gray-100 text-slate-900 dark:bg-white hover:brightness-95 transition-all duration-200 w-full h-11 cursor-pointer shadow-md font-semibold hidden xl:inline"
+              >
+                Cancel
+              </button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    ), {
+      duration: Infinity,
+      position: "top-center",
+    });
   };
 
   useEffect(() => {
