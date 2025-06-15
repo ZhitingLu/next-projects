@@ -36,7 +36,32 @@ export default function RootLayout({ children }) {
           className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         >
           <Providers>
-            <Toaster />
+            <Toaster
+              toastOptions={{
+                // Shared base styles
+                className:
+                  "bg-white text-black dark:bg-gray-900 dark:text-white ",
+
+                // Custom styles per toast type
+                success: {
+                  className:
+                    "bg-green-50 text-green-800 dark:bg-green-900 dark:text-green-200",
+                },
+                error: {
+                  className:
+                    "bg-red-50 text-red-800 dark:bg-red-900 dark:text-red-200",
+                },
+                style: {
+                  margin: 0,
+                  boxShadow: "none",
+                },
+              }}
+              containerStyle={{
+                top: 20,
+                margin: 0,
+                padding: 0,
+              }}
+            />
             <AuthModal />
             <PostInputModal />
             <CommentModal />
