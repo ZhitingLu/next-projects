@@ -9,7 +9,7 @@ import { toast } from "react-hot-toast";
 
 export default function FollowCard({ name, username, avatar, verified }) {
   const { data: session } = useSession();
-  const openModal = useModalStore();
+  const {openModal} = useModalStore();
 
   const handleFollowModal = () => {
     if (!session?.user) {
@@ -41,7 +41,9 @@ export default function FollowCard({ name, username, avatar, verified }) {
               )}
             </span>
           </h3>
-          <p className="text-xs text-gray-500 dark:text-gray-300">@{username}</p>
+          <p className="text-xs text-gray-500 dark:text-gray-300">
+            @{username}
+          </p>
         </div>
       </div>
 
