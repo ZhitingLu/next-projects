@@ -5,7 +5,14 @@ import { useEffect, useRef, useState } from "react";
 import useModalStore from "../stores/modalStore";
 import Input from "./Input";
 import Post from "./Post";
-import { addDoc, collection, doc, getDoc, getFirestore, serverTimestamp } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  doc,
+  getDoc,
+  getFirestore,
+  serverTimestamp,
+} from "firebase/firestore";
 import { app } from "@/firebase";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
@@ -25,8 +32,8 @@ export default function CommentModal() {
   useOutsideClick(modalRef, closeModal);
 
   const handleCommentSubmit = async (text, imageUrl, replyToId) => {
-    const postRef = doc(db, 'posts', postId);
-    const commentsRef = collection(postRef, 'comments');
+    const postRef = doc(db, "posts", postId);
+    const commentsRef = collection(postRef, "comments");
     try {
       await addDoc(commentsRef, {
         uid: session.user.uid,
@@ -40,11 +47,10 @@ export default function CommentModal() {
       });
       closeModal();
       router.push(`/posts/${postId}`); //
-
     } catch (error) {
-      console.log('Failed to submit comment: ', error)
+      console.log("Failed to submit comment: ", error);
     }
-  }
+  };
 
   useEffect(() => {
     if (postId) {
@@ -70,10 +76,17 @@ export default function CommentModal() {
 
   return (
     <>
-      <div className="fixed inset-0 z-50 bg-gray-900/30  dark:bg-gray-400/50 flex justify-center items-start pt-20 px-4">
+      <div
+        className="fixed inset-0 z-50 bg-gray-900/30  dark:bg-gray-400/50 
+      flex justify-center items-start pt-20 px-4 overflow-y-auto"
+      >
         <div
           ref={modalRef}
-          className="flex bg-white dark:bg-black rounded-xl shadow-lg max-w-xl w-full px-4 pt-4 pb-2 border-gray-100 dark:border-gray-700 relative"
+          className={`flex flex-col bg-white dark:bg-black rounded-xl shadow-lg
+            max-w-xl w-full px-4 pt-4 pb-2 border-gray-100 dark:border-gray-700 relative
+            transition-all duration-300 ease-in-out
+            max-h-[calc(100vh-5rem)] overflow-y-auto
+          `}
         >
           <div className="">
             <button
@@ -82,15 +95,28 @@ export default function CommentModal() {
             >
               ×
             </button>
-            <span className="absolute top-3 right-4 text-blue-400 text-1xl font-bold cursor-pointer rounded-full hover:bg-blue-100 dark:hover:bg-gray-700 px-3 py-1">Drafts</span>
+            <span className="absolute top-3 right-4 text-blue-400 text-1xl font-bold cursor-pointer rounded-full hover:bg-blue-100 dark:hover:bg-gray-700 px-3 py-1">
+              Drafts
+            </span>
           </div>
           <div className="mt-10 flex flex-col w-full">
             <div className="relative">
-              {post && <Post post={post} id={postId} hideIcons commentStyle noLink hideImg />}
-
+              {post && (
+                <Post
+                  post={post}
+                  id={postId}
+                  hideIcons
+                  commentStyle
+                  noLink
+                  hideImg
+                />
+              )}
 
               {/* Vertical line positioned absolutely relative to post */}
-              <div className="absolute bg-gray-300 dark:bg-gray-400 left-[2.1rem] w-0.5" style={{ top: "4rem", bottom: 0 }} />
+              <div
+                className="absolute bg-gray-300 dark:bg-gray-400 left-[2.1rem] w-0.5"
+                style={{ top: "4rem", bottom: 0 }}
+              />
               <div className="flex pl-16 mt-3">
                 {post?.image && (
                   <img
@@ -110,7 +136,6 @@ export default function CommentModal() {
               successToastMsg="Comment posted successfully!"
             />
           </div>
-
         </div>
       </div>
     </>
