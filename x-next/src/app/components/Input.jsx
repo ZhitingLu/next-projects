@@ -32,7 +32,6 @@ export default function Input({
   commentStyle = false,
   replyTo = null, // Optional prop for replying to a post
   onSubmit = null, // Optional prop for custom submit handler
-  successToastMsg = "Post submitted successfully!",
 }) {
   const { data: session } = useSession();
   const imagePickRef = useRef(null);
@@ -46,8 +45,8 @@ export default function Input({
   const closeModal = useModalStore((state) => state.closeModal);
   const router = useRouter();
   const pathname = usePathname();
-  const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const emojiPickerRef = useRef(null);
+  const [showEmojiPicker, setShowEmojiPicker] = useState(false);
 
   const handleImagePick = (e) => {
     const file = e.target.files[0];
@@ -130,10 +129,16 @@ export default function Input({
       setImageFileUrl(null);
       setSelectedImageFile(null);
       closeModal(); // Close the modal
-      if (pathname === "/") {
-        router.refresh(); // Refresh the feed if on the home page
+      if (replyTo) {
+        // Comment: just refresh the page
+        router.refresh();
       } else {
-        router.push("/"); // Navigate to home if not on the feed
+        // New post: go to home if not already there
+        if (pathname !== "/") {
+          router.push("/");
+        } else {
+          router.refresh();
+        }
       }
       toast.success(successToastMsg);
     } catch (error) {
@@ -151,7 +156,8 @@ export default function Input({
         commentStyle
           ? "pt-3 px-3 pb-0"
           : "border-b border-gray-100 dark:border-gray-700 p-3"
-      } space-x-3 w-full`}
+      } space-x-3 sm:left-auto 
+                sm:right-0 w-[90vw] sm:w-auto`}
     >
       <img
         src={session.user.image}
@@ -175,7 +181,7 @@ export default function Input({
           <img
             src={imageFileUrl}
             alt="Selected"
-            className={`mt-2 max-h-60 cursor-pointer object-cover ${
+            className={`mt-2 w-full max-w-[90%] max-h-[300px] object-contain rounded-lg cursor-pointer ${
               imageFileUploading ? "animate-pulse" : ""
             }`}
           />
@@ -199,9 +205,20 @@ export default function Input({
             {showEmojiPicker && (
               <div
                 ref={emojiPickerRef}
-                className="absolute bottom-14 left-0 top-full mt-1 z-50"
+                className="
+      absolute z-50 top-full left-1/2 transform -translate-x-1/2
+      w-[90vw] max-w-xs
+      max-h-[300px] sm:w-auto sm:max-w-md sm:max-h-[400px]
+      overflow-auto rounded-lg shadow-lg 
+    "
               >
-                <EmojiPicker onEmojiClick={onEmojiClick} />
+                <EmojiPicker
+                  onEmojiClick={onEmojiClick}
+                  autoFocusSearch={false}
+                  skinTonesDisabled
+                  height="auto"
+                  width="100%"
+                />
               </div>
             )}
 
